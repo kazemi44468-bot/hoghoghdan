@@ -78,3 +78,20 @@ body{
  .header-actions .button-gold{font-size:9px}
  .site-footer{background-position:center top}
 }
+
+/* تصاویر حقوقی با مجوز آزاد از Wikimedia Commons */
+.hero{
+ background:
+ linear-gradient(100deg,rgba(7,35,58,.93),rgba(8,70,105,.78)),
+ url("https://commons.wikimedia.org/wiki/Special:FilePath/Hong_Kong_and_the_Scales_of_Justice.jpg") center 42%/cover no-repeat;
+}
+.band-section{
+ background:
+ linear-gradient(110deg,rgba(14,37,60,.94),rgba(27,70,101,.84)),
+ url("https://commons.wikimedia.org/wiki/Special:FilePath/The_Scales_of_Justice_above_the_streets_of_Hong_Kong.jpg") center 46%/cover no-repeat;
+}
+.inner-hero{
+ background:
+ linear-gradient(110deg,rgba(15,42,67,.94),rgba(40,81,112,.86)),
+ url("https://commons.wikimedia.org/wiki/Special:FilePath/Hong_Kong_and_the_Scales_of_Justice.jpg") center 48%/cover no-repeat;
+}
