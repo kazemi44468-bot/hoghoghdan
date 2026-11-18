@@ -280,7 +280,7 @@ body{background:#f6f9fb;color:#263d50}
 .site-header.is-scrolled .nav-inner{min-height:42px;padding-block:3px}
 .site-header.is-scrolled .nav-inner>a,.site-header.is-scrolled .nav-parent{min-height:28px!important;padding:3px 10px!important;font-size:9px!important}
 .hero{background:linear-gradient(110deg,rgba(15,54,83,.91),rgba(37,91,125,.78)),url(var(--site-floral-pattern)) repeat center center}
-.hero-seal .seal-ring{border-color:#d9c18d;background-image:url("../images/iran-legal-network-logo.svg");background-repeat:no-repeat;background-position:center;background-size:78%}
+.hero-seal .seal-ring{border-color:#d9c18d;background-image:url("../images/logo.png");background-repeat:no-repeat;background-position:center;background-size:78%}
 .hero-seal .seal-ring svg{display:none}
 .band-section,.roadmap-section{background:#edf4f8!important;color:#29465d!important;border-block:1px solid #dce8ef}
 .band-section:after{border-color:#b8cbd7;box-shadow:0 0 0 28px rgba(91,132,158,.05),0 0 0 58px rgba(91,132,158,.035)}
