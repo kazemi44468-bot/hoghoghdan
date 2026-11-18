@@ -95,3 +95,31 @@ body{
  linear-gradient(110deg,rgba(15,42,67,.94),rgba(40,81,112,.86)),
  url("https://commons.wikimedia.org/wiki/Special:FilePath/Hong_Kong_and_the_Scales_of_Justice.jpg") center 48%/cover no-repeat;
 }
+
+/* بازطراحی هدر و منوی اصلی؛ حذف نوار تیره بالای هدر */
+.topline{display:none!important}
+.site-header{margin-top:0}
+.main-nav{position:relative;z-index:30;background:rgba(0,65,99,.96);border-top:1px solid rgba(255,255,255,.22)}
+.nav-inner{display:flex;align-items:center;justify-content:center;gap:7px;min-height:54px;flex-wrap:wrap;padding-block:6px}
+.nav-inner>a,.nav-parent{display:flex;align-items:center;gap:7px;min-height:36px;padding:7px 14px!important;border:1px solid rgba(255,255,255,.23)!important;border-radius:7px!important;background:rgba(22,105,153,.72)!important;color:#f5f9fc!important;font-size:11px!important;font-weight:600;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.nav-inner>a:hover,.nav-parent:hover,.nav-dropdown:focus-within>.nav-parent,.nav-dropdown:hover>.nav-parent,.nav-inner>a.active,.nav-parent.active{background:#e7f0f5!important;color:#124d6b!important;border-color:#d4e3ec!important}
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-parent span{font-size:13px;color:#e3c994}
+.dropdown-menu{display:none;position:absolute;top:100%;right:0;min-width:220px;max-height:min(72vh,520px);overflow-y:auto;padding:7px;background:#fff;border:1px solid #dce5eb;border-radius:9px;box-shadow:0 14px 34px rgba(8,39,62,.2);z-index:80}
+.nav-dropdown:hover>.dropdown-menu,.nav-dropdown:focus-within>.dropdown-menu{display:block}
+.dropdown-menu a{display:block;padding:8px 11px;border-radius:6px;color:#40586c;font-size:11px;line-height:1.7;white-space:nowrap}
+.dropdown-menu a:hover,.dropdown-menu a:focus{background:#edf4f8;color:#07527a;outline:none}
+.dropdown-menu .dropdown-separator{margin-top:5px;padding-top:11px;border-top:1px solid #e4e9ed;color:#07527a;font-weight:700}
+.nav-home.active{border-bottom:2px solid #d5b47c!important}
+#social,.info-box[id]{scroll-margin-top:100px}
+@media(max-width:760px){
+ .header-main{height:auto;min-height:74px;padding-block:9px;gap:8px}
+ .nav-inner{justify-content:flex-start;gap:5px;min-height:0;padding-block:8px}
+ .nav-inner>a,.nav-parent{min-height:34px;padding:6px 10px!important;font-size:10px!important}
+ .nav-dropdown{position:static}
+ .dropdown-menu{top:auto;right:14px;left:14px;min-width:0;width:auto;max-height:55vh;white-space:normal}
+ .dropdown-menu a{white-space:normal}
+}
+@media(hover:none){
+ .nav-dropdown:focus-within>.dropdown-menu{display:block}
+}
