@@ -571,3 +571,76 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
  .pillar-card:after{width:58px;height:42px}
  .content-card:after{width:min(190px,58%);height:72px}
 }
+
+
+/* بازطراحی چیدمان تصاویر: نوارهای تصویری یکپارچه و کارت‌های حرفه‌ای */
+.pillar-card,
+.revenue-grid article,
+.content-card{
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid #dce5eb;
+  box-shadow:0 8px 24px rgba(24,55,77,.07);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.pillar-card:hover,
+.revenue-grid article:hover,
+.content-card:hover{
+  transform:translateY(-3px);
+  border-color:#c6d6e1;
+  box-shadow:0 14px 30px rgba(24,55,77,.12);
+}
+.pillar-card{padding-bottom:22px!important}
+.pillar-card:after{
+  position:relative!important;
+  display:block!important;
+  inset:auto!important;
+  width:100%!important;
+  height:132px!important;
+  margin:18px 0 0!important;
+  border:0!important;
+  border-top:1px solid #dbe4ea!important;
+  border-radius:0 0 12px 12px!important;
+  box-shadow:none!important;
+  opacity:1!important;
+  background-size:cover!important;
+  background-position:center 44%!important;
+}
+.revenue-grid article:after{
+  width:100%!important;
+  height:118px!important;
+  margin:18px 0 0!important;
+  border:0!important;
+  border-top:1px solid #dbe4ea!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  background-size:cover!important;
+  background-position:center 45%!important;
+}
+.content-card:after{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:142px!important;
+  margin:20px 0 0!important;
+  border:1px solid #dce5eb!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  background-size:cover!important;
+  background-position:center 46%!important;
+}
+.pillar-card:after,
+.revenue-grid article:after,
+.content-card:after{
+  background-repeat:no-repeat!important;
+}
+@media(max-width:760px){
+  .pillar-card:after{height:112px!important}
+  .revenue-grid article:after{height:100px!important}
+  .content-card:after{height:116px!important}
+}
+@media(max-width:420px){
+  .pillar-card:after{height:96px!important}
+  .revenue-grid article:after{height:88px!important}
+  .content-card:after{height:100px!important}
+}
