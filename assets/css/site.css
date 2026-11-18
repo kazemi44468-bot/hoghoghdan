@@ -12,15 +12,17 @@
 @media(max-width:680px){.container{width:min(100% - 28px,560px)}.topline-inner{height:32px}.topline-inner>span{font-size:9px}.topline-inner>div{display:none}.header-main{height:72px}.brand-mark{width:42px;height:42px}.brand-mark svg{width:30px}.brand strong{font-size:15px}.brand small{font-size:8px}.header-actions .text-link{display:none}.header-actions .button{min-height:36px;padding:7px 10px;font-size:10px}.nav-inner{overflow-x:auto;scrollbar-width:none;min-height:44px;gap:2px}.nav-inner::-webkit-scrollbar{display:none}.nav-inner a{flex:0 0 auto;padding:7px 10px;font-size:10px}.hero-content{grid-template-columns:1fr;min-height:0;padding-block:44px 32px}.hero-seal{display:none}.hero h1{font-size:27px}.hero-copy>p{font-size:11px}.hero-meta{font-size:9px;gap:8px}.hero-bottom>.container{font-size:9px;height:39px}.intro-grid{grid-template-columns:1fr;gap:8px;padding-block:25px}.intro-grid h2,.section-heading h2{font-size:20px}.section{padding-block:43px}.section-heading{align-items:start}.section-heading p{max-width:300px}.arrow-link{font-size:9px}.pillar-grid{gap:9px}.pillar-card{padding:16px 13px;min-height:235px}.pillar-card h3{font-size:12px}.pillar-card p{font-size:9.5px}.pillar-icon{width:38px;height:38px;margin-bottom:12px}.band-grid{grid-template-columns:1fr;gap:25px}.band-grid h2{font-size:24px}.value-list{gap:8px}.revenue-grid{grid-template-columns:1fr 1fr;gap:8px}.revenue-grid article{padding:14px 12px;min-height:175px}.revenue-grid h3{font-size:11px}.revenue-grid p{font-size:9px}.roadmap{grid-template-columns:1fr;gap:10px}.roadmap:before{top:10px;bottom:12px;right:19px;left:auto;width:1px;height:auto}.roadmap>div{padding:4px 53px 9px 0;min-height:52px}.roadmap>div>b{width:39px;height:39px}.roadmap strong{font-size:11px}.roadmap small{font-size:9px}.cta-section{align-items:flex-start;flex-direction:column;padding-block:32px}.footer-main{grid-template-columns:1fr 1fr;gap:20px;padding-block:25px}.footer-brand{grid-column:1/-1}.footer-bottom{font-size:8px}.content-layout{grid-template-columns:1fr;padding-block:20px 45px}.side-index{position:static;display:flex;flex-wrap:wrap;gap:4px}.side-index b{width:100%}.side-index a{padding:5px 7px}.inner-hero{padding:36px 0}.inner-hero h1{font-size:24px}.info-grid{grid-template-columns:1fr}.content-card{padding:17px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
-/* --- هویت بصری برگرفته از قالب اختصاصی پوشه ۲ --- */
+:root{--site-background-pattern:url("../images/site-background.svg");--site-floral-pattern:url("../images/blue-floral-pattern.svg")}}
+
+/* --- هویت بصری مستقل از پوشه قدیمی ۲ --- */
 body{
  background-color:#f5f8fa;
- background-image:url("../../2/images/bac_main%20%282%29.png");
+ background-image:url(var(--site-background-pattern));
  background-repeat:repeat;
  background-position:center top;
 }
 .site-header{
- background:#07527a url("../../2/images/flower-swirl10.png") repeat left top;
+ background:#07527a url(var(--site-floral-pattern)) repeat left top;
  box-shadow:0 3px 12px rgba(8,39,62,.18);
 }
 .header-main{background:transparent}
@@ -56,13 +58,13 @@ body{
 .hero{
  background:
  linear-gradient(105deg,rgba(0,48,76,.92),rgba(0,79,119,.82)),
- url("../../2/images/flower-swirl10.png") repeat center center;
+ url(var(--site-floral-pattern)) repeat center center;
 }
 .hero:before{opacity:.26}
 .hero-seal .seal-ring{background:radial-gradient(circle,#ffffff12 0 54%,transparent 55%)}
 .site-footer{
  color:#f1f6f9;
- background:#07527a url("../../2/images/flower-swirl10.png") repeat center top;
+ background:#07527a url(var(--site-floral-pattern)) repeat center top;
  border-top:3px solid #d4b77f;
 }
 .footer-brand strong,.footer-main>div:not(:first-child)>b{color:#fff}
@@ -135,7 +137,7 @@ body{
 /* هویت یکپارچه هدر و فوتر بر پایه نقش‌مایه گل‌دار قالب پوشه ۲ */
 .site-header,.site-footer{
  background-color:#07527a;
- background-image:url("../../2/images/flower-swirl10.png");
+ background-image:url(var(--site-floral-pattern));
  background-repeat:repeat;
  background-position:center top;
  color:#f5f8fb;
@@ -265,7 +267,7 @@ body{
 
 :root{--navy:#173b5b;--navy2:#285879;--blue:#477b9b;--gold:#b58b4d;--ink:#263d50;--muted:#718394;--line:#dfe8ee;--soft:#eef5f8}
 body{background:#f6f9fb;color:#263d50}
-.site-header{position:sticky;top:0;z-index:120;background:#07527a url("../../2/images/flower-swirl10.png") repeat left top;box-shadow:0 4px 18px rgba(12,47,72,.14)}
+.site-header{position:sticky;top:0;z-index:120;background:#07527a url(var(--site-floral-pattern)) repeat left top;box-shadow:0 4px 18px rgba(12,47,72,.14)}
 .header-main{height:74px;transition:height .22s ease,opacity .18s ease}
 .brand{gap:10px}.brand-mark{width:48px;height:48px;padding:2px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.42);border-radius:12px;overflow:hidden}.brand-mark img{width:100%;height:100%;object-fit:contain;display:block}.brand strong{font-size:17px}
 .nav-inner{min-height:46px;gap:5px;padding-block:4px}
@@ -277,7 +279,7 @@ body{background:#f6f9fb;color:#263d50}
 .site-header.is-scrolled .header-main{height:0;min-height:0;overflow:hidden;opacity:0;pointer-events:none}
 .site-header.is-scrolled .nav-inner{min-height:42px;padding-block:3px}
 .site-header.is-scrolled .nav-inner>a,.site-header.is-scrolled .nav-parent{min-height:28px!important;padding:3px 10px!important;font-size:9px!important}
-.hero{background:linear-gradient(110deg,rgba(15,54,83,.91),rgba(37,91,125,.78)),url("../../2/images/flower-swirl10.png") repeat center center}
+.hero{background:linear-gradient(110deg,rgba(15,54,83,.91),rgba(37,91,125,.78)),url(var(--site-floral-pattern)) repeat center center}
 .hero-seal .seal-ring{border-color:#d9c18d;background-image:url("../images/iran-legal-network-logo.svg");background-repeat:no-repeat;background-position:center;background-size:78%}
 .hero-seal .seal-ring svg{display:none}
 .band-section,.roadmap-section{background:#edf4f8!important;color:#29465d!important;border-block:1px solid #dce8ef}
@@ -295,7 +297,7 @@ body{background:#f6f9fb;color:#263d50}
 .content-card h2,.content-card h3,.side-index b,.pillar-card h3,.revenue-grid h3{color:#214b68}
 .info-box{background:#f5f9fb;border-color:#e1eaf0}.tag-list span{background:#edf4f7;color:#45657d}
 .contact-intro,.contact-form-card{background:#fff;border-color:#dfe8ee}.contact-bottom{background:#edf4f8}
-.site-footer{background:#07527a url("../../2/images/flower-swirl10.png") repeat center top;border-top:2px solid #d4b77f}
+.site-footer{background:#07527a url(var(--site-floral-pattern)) repeat center top;border-top:2px solid #d4b77f}
 #back-to-top{position:fixed;left:22px;bottom:24px;z-index:150;width:43px;height:43px;border:1px solid #d7e4eb;border-radius:50%;background:#fff;color:#175274;box-shadow:0 5px 18px rgba(18,54,77,.18);display:grid;place-items:center;font:700 21px Vazirmatn;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}
 #back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}#back-to-top:hover{background:#07527a;color:#fff;border-color:#07527a}
 .mobile-bottom-nav{display:none}
