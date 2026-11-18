@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Trigger update: download the 14 local legal-site images through GitHub Actions.
 """
 دانلود ۱۴ تصویر مرتبط با موضوعات حقوقی برای وب‌سایت شبکه حقوق‌دانان
 اجرا: python scripts/download_legal_images.py
