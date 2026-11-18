@@ -309,3 +309,53 @@ body{background:#f6f9fb;color:#263d50}
 body{padding-bottom:82px}#back-to-top{left:15px;bottom:94px;width:39px;height:39px}.footer-bottom{padding-inline:0}
 }
 @media(max-width:390px){.brand{gap:7px}.brand strong{font-size:12px}.brand small{font-size:7px}.header-actions .header-join{font-size:8px;padding:6px 8px}.mobile-bottom-nav{right:7px;left:7px}.mobile-bottom-nav a{font-size:7px}}
+
+/* طیف گرم و رسمی حقوقی: عاجی، کاغذی، قهوه‌ای و طلایی */
+:root{--navy:#27364b;--navy2:#3d4c5d;--blue:#596d7d;--gold:#a77b3f;--gold-light:#e6d4b4;--ink:#40372e;--muted:#7c7063;--paper:#fffdf8;--cream:#f5efe4;--line:#e7ddce;--soft:#f1e9dc;--shadow:0 14px 40px rgba(73,55,34,.075)}
+body{background:#f8f5ef;color:#40372e}
+.topline{background:#342b24;color:#eee5d8}
+.topline a{color:#e5c995}
+.site-header{background:#fffdf9;box-shadow:0 5px 22px rgba(69,51,31,.09)}
+.brand{color:#303b49}
+.brand-mark{border-color:#c7a66f;background:#f7f0e3}
+.brand strong{color:#303b49}
+.brand small{color:#817365}
+.main-nav{background:#3b3028;border-top:1px solid #c8a66e}
+.nav-inner>a,.nav-parent{color:#f8f1e6}
+.nav-inner>a:hover,.nav-parent:hover,.nav-dropdown:focus-within>.nav-parent,.nav-dropdown:hover>.nav-parent,.nav-inner>a.active,.nav-parent.active{background:#f3e8d4;color:#493827;border-color:#d5bc91}
+.dropdown-menu{background:#fffdf8;border-color:#e3d5c0}
+.dropdown-menu a{color:#554535}
+.dropdown-menu a:hover{background:#f3eadb;color:#8a622f}
+.header-join{background:#a77b3f;color:#fffaf1;border-color:#a77b3f}
+.header-join:hover{background:#8c632f}
+.hero{background-color:#27384b}
+.hero h1 em{color:#e3c28b}
+.section{background:#f8f5ef}
+.section-heading h2,.intro-grid h2{color:#3c332b}
+.section-heading p{color:#786b5e}
+.pillar-card,.content-card,.revenue-grid article,.side-index,.contact-intro,.contact-form-card{background:#fffdf8;border-color:#e8dece;box-shadow:0 7px 22px rgba(77,57,35,.055)}
+.pillar-card h3,.content-card h2,.content-card h3,.side-index b,.revenue-grid h3{color:#55412d}
+.pillar-card p,.content-card p,.content-card li{color:#65594d}
+.card-link,.card-link b{color:#98703a}
+.band-section,.roadmap-section{background:#f0e7d8!important;color:#4c4033!important;border-block:1px solid #e2d2ba}
+.band-section:after{border-color:#d2bd9a;box-shadow:0 0 0 28px rgba(167,123,63,.055),0 0 0 58px rgba(167,123,63,.035)}
+.band-grid h2,.roadmap-section .section-heading h2{color:#463629!important}
+.band-grid>div:first-child p,.roadmap-section .section-heading p,.roadmap small{color:#756657!important}
+.value-list>div{background:#fffdf8;border-color:#e2d6c4;box-shadow:0 4px 14px rgba(77,57,35,.045)}
+.value-list strong{color:#57442f}.value-list small{color:#817365}.value-list>div>b{background:#e9d8b8;color:#76582e}
+.roadmap:before{background:#b58b50}.roadmap>div>b{background:#fffdf8;border-color:#c4a16b;color:#8c6736}
+.economic-note{background:#f3eadb;border-color:#c7a66f;color:#5c4b38}
+.inner-hero{background:linear-gradient(110deg,#f1e8da,#faf7f0)!important;color:#44372a;border-bottom:1px solid #e3d6c3}
+.inner-hero:after{border-color:#d7c4a4;box-shadow:0 0 0 25px rgba(167,123,63,.045),0 0 0 55px rgba(167,123,63,.025)}
+.inner-hero .section-kicker{color:#9b7139!important}.inner-hero h1{color:#403328}.inner-hero p{color:#756759}
+.info-box{background:#f5eee3;border-color:#e6d8c3}
+.tag-list span{background:#f0e6d7;color:#705737}
+.cta-section{background:#3b3028;color:#f8f0e4}
+.cta-section h2{color:#fff7e9}.cta-section p{color:#e1d2bd}
+.site-footer{background:#342b24 url("../../2/images/flower-swirl10.png") repeat center top;border-top:2px solid #bd965b}
+.footer-brand strong,.footer-main>div:not(:first-child)>b{color:#f4dfbb}
+.footer-brand p,.footer-main a,.footer-bottom{color:#e4d9ca}
+.footer-motto{color:#e9d7b8}.footer-motto em{color:#d4ae70}
+#back-to-top{border-color:#ddc9a7;color:#79582f;background:#fffaf1}
+#back-to-top:hover{background:#8e6736;color:#fffaf1;border-color:#8e6736}
+@media(max-width:760px){.mobile-bottom-nav{background:rgba(255,252,246,.97);border-color:#e3d4bd}.mobile-bottom-nav a{color:#766655}.mobile-bottom-nav a span:first-child{color:#8e6b3d}.mobile-bottom-nav a.active{background:#f0e5d3;color:#5d4428}.mobile-bottom-nav a.active span:first-child{color:#a77b3f}}
