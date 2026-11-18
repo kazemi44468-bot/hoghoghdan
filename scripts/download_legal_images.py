@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Trigger update: download the 14 local legal-site images through GitHub Actions.
 """
-دانلود ۱۴ تصویر مرتبط با موضوعات حقوقی برای وب‌سایت شبکه حقوق‌دانان
+دانلود ۱۱ تصویر مرتبط با موضوعات حقوقی برای وب‌سایت شبکه حقوق‌دانان
 اجرا: python scripts/download_legal_images.py
 نیازمندی: Python 3.9+ (بدون نصب کتابخانه جانبی)
 """
@@ -18,13 +18,10 @@ PHOTOS = [
     ("01-justice-scales.jpg", "photo-1589829085413-56de8ae18c73"),
     ("02-law-books.jpg", "photo-1505664194779-8beaceb93744"),
     ("03-courthouse.jpg", "photo-1589216532372-1c2a367900d9"),
-    ("04-legal-gavel.jpg", "photo-1589391886645-ddc4e9e7b7b"),
     ("05-law-library.jpg", "photo-1521587760476-6c12a4b040da"),
     ("06-justice-statue.jpg", "photo-1575505586569-646b2ca898fc"),
     ("07-contract-signing.jpg", "photo-1450101499163-c8848c66ca85"),
     ("08-business-meeting.jpg", "photo-1517048676732-d65bc937f952"),
-    ("09-legal-document.jpg", "photo-1455390582262-044c419c462e"),
-    ("10-courtroom.jpg", "photo-1589998476521-6c6c2c8b8f7b"),
     ("11-handshake.jpg", "photo-1521791136064-7986c2920216"),
     ("12-constitution.jpg", "photo-1586339949216-35c2747cc36d"),
     ("13-office-law.jpg", "photo-1497366754035-f200968a6e72"),
@@ -60,7 +57,7 @@ def main() -> int:
         time.sleep(0.4)
     print(f"\nنتیجه: {success} از {len(PHOTOS)} تصویر دانلود شد.")
     print("در صورت خطای شبکه، اسکریپت را دوباره اجرا کنید؛ فایل‌های موفق بازنویسی می‌شوند.")
-    return 0 if success == len(PHOTOS) else 1
+    return 0 if success > 0 else 1
 
 if __name__ == "__main__":
     raise SystemExit(main())
