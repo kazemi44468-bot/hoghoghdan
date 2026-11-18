@@ -131,3 +131,96 @@ body{
 .nav-dropdown.is-open>.dropdown-menu{display:block}
 .nav-toggle[aria-expanded="true"]{color:#124d6b;background:#e7f0f5}
 @media(max-width:760px){.nav-toggle{height:34px;width:26px}.nav-dropdown{position:relative}.dropdown-menu{top:calc(100% + 4px);right:0;left:auto;width:min(300px,calc(100vw - 28px));box-shadow:0 12px 28px rgba(8,39,62,.22)}}
+
+/* هویت یکپارچه هدر و فوتر بر پایه نقش‌مایه گل‌دار قالب پوشه ۲ */
+.site-header,.site-footer{
+ background-color:#07527a;
+ background-image:url("../../2/images/flower-swirl10.png");
+ background-repeat:repeat;
+ background-position:center top;
+ color:#f5f8fb;
+}
+.site-header{box-shadow:0 3px 15px rgba(7,39,62,.14);border:0}
+.header-main{height:76px}
+.brand{color:#fff;gap:11px}
+.brand-mark{width:43px;height:43px;border:1px solid rgba(255,255,255,.45);border-radius:9px;background:rgba(255,255,255,.1);color:#fff}
+.brand-mark svg{width:30px;height:30px}
+.brand strong{font-size:17px;color:#fff}
+.brand small{font-size:9px;color:#d8e8f1}
+.header-actions{gap:17px}
+.header-quiet-link{font-size:10px;color:#e1edf3}
+.header-join{display:inline-flex;align-items:center;gap:10px;padding:7px 13px;border:1px solid rgba(255,255,255,.55);border-radius:6px;background:rgba(255,255,255,.13);color:#fff;font-size:10px;font-weight:600;transition:.2s}
+.header-join:hover{background:#fff;color:#07527a}
+.header-join span{font-size:14px;color:#e4d0a8}
+.main-nav{background:rgba(0,48,75,.28);border-top:1px solid rgba(255,255,255,.19)}
+.nav-inner{min-height:43px;justify-content:center;gap:4px;padding-block:4px;flex-wrap:wrap}
+.nav-inner>a,.nav-parent{
+ display:flex;align-items:center;min-height:31px;padding:5px 12px!important;
+ border:1px solid transparent!important;border-radius:5px!important;
+ background:transparent!important;color:#eaf2f7!important;
+ font-size:10px!important;font-weight:500;white-space:nowrap;transition:background .18s,color .18s,border-color .18s;
+}
+.nav-inner>a:hover,.nav-parent:hover,.nav-dropdown:hover>.nav-parent,.nav-dropdown:focus-within>.nav-parent,.nav-inner>a.active,.nav-parent.active{
+ background:rgba(255,255,255,.14)!important;border-color:rgba(255,255,255,.24)!important;color:#fff!important;box-shadow:none!important
+}
+.nav-inner>a.active,.nav-parent.active{border-bottom:2px solid #e0c89c!important}
+.nav-dropdown{position:relative;display:flex;align-items:center;gap:0}
+.nav-toggle{display:grid;place-items:center;width:17px;height:28px;margin:0 0 0 -5px;padding:0;border:0!important;border-radius:4px;background:transparent!important;color:#e4d0a8;cursor:pointer}
+.nav-caret{width:6px;height:6px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .18s}
+.nav-dropdown.is-open>.nav-toggle .nav-caret{transform:rotate(225deg) translate(-1px,-1px)}
+.nav-dropdown:hover>.nav-toggle,.nav-dropdown:focus-within>.nav-toggle,.nav-dropdown.is-open>.nav-toggle{color:#fff;background:rgba(255,255,255,.12)!important}
+.dropdown-menu{
+ display:none;position:absolute;top:calc(100% + 5px);right:0;min-width:205px;max-height:min(70vh,470px);overflow:auto;
+ padding:6px;background:#fff;border:1px solid #e0e7ec;border-radius:7px;
+ box-shadow:0 12px 30px rgba(8,39,62,.17);z-index:90
+}
+.nav-dropdown:hover>.dropdown-menu,.nav-dropdown:focus-within>.dropdown-menu,.nav-dropdown.is-open>.dropdown-menu{display:block}
+.dropdown-menu a{display:block;padding:7px 10px;margin:1px 0;border-radius:4px;color:#40566a;font-size:10px;line-height:1.8;white-space:nowrap}
+.dropdown-menu a:hover,.dropdown-menu a:focus{background:#edf4f8;color:#07527a;outline:none}
+.nav-simple{margin-inline:1px}
+.site-footer{border-top:2px solid #d7bd8b;box-shadow:0 -3px 14px rgba(7,39,62,.07)}
+.footer-main{padding-block:28px 23px;grid-template-columns:1.6fr 1fr 1fr .8fr;gap:28px}
+.footer-brand strong,.footer-main>div:not(:first-child)>b{color:#fff;font-size:12px}
+.footer-brand p{color:#d8e7ef;font-size:10px;max-width:330px}
+.footer-main a{color:#dce9f0;font-size:10px}
+.footer-main a:hover{color:#fff}
+.footer-motto{color:#f2dfbd;font-size:17px}
+.footer-motto em{color:#f2dfbd}
+.footer-bottom{height:40px;border-top:1px solid rgba(255,255,255,.22);color:#d5e4ec;font-size:9px}
+.content-layout{padding-block:30px 60px;gap:24px}
+.content-card{border:1px solid #e2e8ec;border-radius:10px;padding:23px 25px;background:rgba(255,255,255,.97);box-shadow:0 6px 20px rgba(12,53,78,.055);margin-bottom:16px}
+.content-card h2{font-size:17px;color:#174b6b;border-bottom:1px solid #edf0f2;padding-bottom:10px;margin:0 0 13px}
+.content-card p,.content-card li{font-size:11px;line-height:2.2;color:#596d7d}
+.info-grid{gap:12px}
+.info-box{border:1px solid #e5eaee;border-radius:8px;background:#fbfcfd;padding:15px}
+.info-box h3{font-size:12px;color:#245a78;margin:0 0 6px}
+.info-box p{font-size:10px;margin:0}
+.inner-hero{padding:38px 0 34px}
+.inner-hero h1{font-size:27px;margin:5px 0}
+.inner-hero p{font-size:11px;max-width:760px}
+@media(max-width:760px){
+ .header-main{height:auto;min-height:68px;padding-block:8px;gap:8px}
+ .brand-mark{width:37px;height:37px}
+ .brand strong{font-size:14px}
+ .brand small{font-size:8px}
+ .header-quiet-link{display:none}
+ .header-join{font-size:9px;padding:6px 9px}
+ .nav-inner{justify-content:center;gap:2px;min-height:0;padding-block:5px;overflow:visible}
+ .nav-inner>a,.nav-parent{min-height:29px;padding:4px 8px!important;font-size:9px!important}
+ .nav-toggle{width:14px;height:25px}
+ .nav-dropdown{position:relative}
+ .dropdown-menu{top:calc(100% + 3px);right:0;left:auto;width:min(270px,calc(100vw - 26px));min-width:0;max-height:55vh}
+ .dropdown-menu a{white-space:normal}
+ .footer-main{grid-template-columns:1fr 1fr;gap:16px;padding-block:22px}
+ .footer-brand{grid-column:1/-1}
+ .footer-motto{font-size:15px}
+ .footer-bottom{height:auto;min-height:40px;gap:8px;padding-block:8px;font-size:8px}
+ .content-card{padding:17px}
+}
+@media(max-width:430px){
+ .nav-inner{justify-content:flex-start}
+ .nav-inner>a,.nav-parent{font-size:8.5px!important;padding-inline:6px!important}
+ .header-join{font-size:8px}
+ .brand{gap:7px}
+ .footer-bottom{flex-direction:column;align-items:flex-start}
+}
