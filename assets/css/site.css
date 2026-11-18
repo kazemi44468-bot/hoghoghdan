@@ -262,3 +262,50 @@ body{
 .contact-bottom a span{color:#ad8a56;margin-right:5px}
 @media(max-width:760px){.contact-layout{grid-template-columns:1fr;padding-block:22px 36px;gap:14px}.contact-intro,.contact-form-card{padding:18px}.contact-quick-grid{grid-template-columns:1fr 1fr}.contact-bottom>.container{align-items:flex-start;flex-direction:column;gap:8px}}
 @media(max-width:430px){.contact-quick-grid,.contact-fields{grid-template-columns:1fr}.contact-fields .field-wide{grid-column:auto}.contact-bottom p{font-size:9px}}
+
+:root{--navy:#173b5b;--navy2:#285879;--blue:#477b9b;--gold:#b58b4d;--ink:#263d50;--muted:#718394;--line:#dfe8ee;--soft:#eef5f8}
+body{background:#f6f9fb;color:#263d50}
+.site-header{position:sticky;top:0;z-index:120;background:#07527a url("../../2/images/flower-swirl10.png") repeat left top;box-shadow:0 4px 18px rgba(12,47,72,.14)}
+.header-main{height:74px;transition:height .22s ease,opacity .18s ease}
+.brand{gap:10px}.brand-mark{width:48px;height:48px;padding:2px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.42);border-radius:12px;overflow:hidden}.brand-mark img{width:100%;height:100%;object-fit:contain;display:block}.brand strong{font-size:17px}
+.nav-inner{min-height:46px;gap:5px;padding-block:4px}
+.nav-inner>a,.nav-parent{min-height:31px!important;padding:5px 11px!important;border-radius:6px!important;font-size:10px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.15)!important;color:#f2f7fa!important}
+.nav-inner>a:hover,.nav-parent:hover,.nav-dropdown:focus-within>.nav-parent,.nav-dropdown:hover>.nav-parent,.nav-inner>a.active,.nav-parent.active{background:#f2f7fa!important;color:#164c6c!important;border-color:#d8e6ed!important}
+.nav-toggle{width:22px;height:30px;border:0;background:transparent;color:#f0d8a8;cursor:pointer;display:grid;place-items:center;margin-right:-7px}
+.nav-caret{width:7px;height:7px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .18s}.nav-dropdown.is-open .nav-caret{transform:rotate(135deg)}
+.dropdown-menu{top:calc(100% + 4px);border:1px solid #dce7ed;box-shadow:0 12px 30px rgba(20,53,77,.15)}
+.site-header.is-scrolled .header-main{height:0;min-height:0;overflow:hidden;opacity:0;pointer-events:none}
+.site-header.is-scrolled .nav-inner{min-height:42px;padding-block:3px}
+.site-header.is-scrolled .nav-inner>a,.site-header.is-scrolled .nav-parent{min-height:28px!important;padding:3px 10px!important;font-size:9px!important}
+.hero{background:linear-gradient(110deg,rgba(15,54,83,.91),rgba(37,91,125,.78)),url("../../2/images/flower-swirl10.png") repeat center center}
+.hero-seal .seal-ring{border-color:#d9c18d;background-image:url("../images/iran-legal-network-logo.svg");background-repeat:no-repeat;background-position:center;background-size:78%}
+.hero-seal .seal-ring svg{display:none}
+.band-section,.roadmap-section{background:#edf4f8!important;color:#29465d!important;border-block:1px solid #dce8ef}
+.band-section:after{border-color:#b8cbd7;box-shadow:0 0 0 28px rgba(91,132,158,.05),0 0 0 58px rgba(91,132,158,.035)}
+.band-grid h2,.roadmap-section .section-heading h2{color:#173b5b!important}
+.band-grid>div:first-child p,.roadmap-section .section-heading p,.roadmap small{color:#647b8d!important}
+.value-list>div{background:#fff;border:1px solid #dce7ed;box-shadow:0 4px 14px rgba(25,60,82,.045)}
+.value-list strong{color:#244d69}.value-list small{color:#718596}.value-list>div>b{background:#e8d8b9;color:#684f2b}
+.roadmap:before{background:#c3a46e}.roadmap>div>b{background:#fff;border-color:#c4a66f;color:#8b6c3d}
+.economic-note{background:#f6f2e9;border-color:#c4a46d;color:#5e6870}
+.inner-hero{background:linear-gradient(110deg,#eaf2f7,#f5f8fa)!important;color:#173b5b;border-bottom:1px solid #dce7ed}
+.inner-hero:after{border-color:#cbdbe4;box-shadow:0 0 0 25px rgba(85,127,151,.05),0 0 0 55px rgba(85,127,151,.03)}
+.inner-hero .section-kicker{color:#98723c!important}.inner-hero h1{color:#173b5b}.inner-hero p{color:#61798b}
+.content-card,.pillar-card,.revenue-grid article,.side-index{background:#fff;border-color:#dfe8ee;box-shadow:0 5px 18px rgba(25,60,82,.045)}
+.content-card h2,.content-card h3,.side-index b,.pillar-card h3,.revenue-grid h3{color:#214b68}
+.info-box{background:#f5f9fb;border-color:#e1eaf0}.tag-list span{background:#edf4f7;color:#45657d}
+.contact-intro,.contact-form-card{background:#fff;border-color:#dfe8ee}.contact-bottom{background:#edf4f8}
+.site-footer{background:#07527a url("../../2/images/flower-swirl10.png") repeat center top;border-top:2px solid #d4b77f}
+#back-to-top{position:fixed;left:22px;bottom:24px;z-index:150;width:43px;height:43px;border:1px solid #d7e4eb;border-radius:50%;background:#fff;color:#175274;box-shadow:0 5px 18px rgba(18,54,77,.18);display:grid;place-items:center;font:700 21px Vazirmatn;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}
+#back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}#back-to-top:hover{background:#07527a;color:#fff;border-color:#07527a}
+.mobile-bottom-nav{display:none}
+@media(max-width:760px){
+.site-header{position:relative;top:auto}.header-main{height:68px;min-height:68px;padding-block:7px}.brand-mark{width:42px;height:42px}.brand strong{font-size:14px}.brand small{font-size:8px}
+.header-actions{gap:8px}.header-actions .header-quiet-link{display:none}.header-actions .header-join{font-size:9px;padding:7px 10px}.main-nav{display:none!important}
+.hero{min-height:0}.hero-content{padding-block:37px 28px}.band-section,.roadmap-section{padding:38px 0}.band-grid{gap:20px}.band-grid h2{font-size:22px;color:#173b5b}
+.mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;gap:2px;right:10px;left:10px;bottom:max(9px,env(safe-area-inset-bottom));z-index:180;padding:7px 5px;background:rgba(255,255,255,.97);border:1px solid #dce7ed;border-radius:15px;box-shadow:0 7px 28px rgba(14,49,72,.18);backdrop-filter:blur(12px)}
+.mobile-bottom-nav a{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:3px 1px;border-radius:9px;color:#61788a;font-size:8px;white-space:nowrap}
+.mobile-bottom-nav a span:first-child{font-size:17px;line-height:1.2;color:#356783}.mobile-bottom-nav a.active{background:#edf4f8;color:#164e70;font-weight:700}.mobile-bottom-nav a.active span:first-child{color:#a17a42}
+body{padding-bottom:82px}#back-to-top{left:15px;bottom:94px;width:39px;height:39px}.footer-bottom{padding-inline:0}
+}
+@media(max-width:390px){.brand{gap:7px}.brand strong{font-size:12px}.brand small{font-size:7px}.header-actions .header-join{font-size:8px;padding:6px 8px}.mobile-bottom-nav{right:7px;left:7px}.mobile-bottom-nav a{font-size:7px}}
