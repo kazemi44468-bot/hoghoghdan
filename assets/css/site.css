@@ -507,3 +507,67 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
  .revenue-grid article:after{height:54px}
  .content-card:after{height:68px;width:min(180px,55%)}
 }
+
+
+/* تکمیل مجموعه تصاویر و تضمین کنتراست متن روی عکس */
+.site-header{
+ background-image:linear-gradient(rgba(0,55,84,.88),rgba(0,55,84,.88)),url("../images/blue-floral-pattern.svg")!important;
+ background-size:auto,auto!important;
+}
+.site-footer{
+ background-image:linear-gradient(rgba(0,55,84,.91),rgba(0,55,84,.91)),url("../images/blue-floral-pattern.svg")!important;
+ background-size:auto,auto!important;
+}
+.hero{
+ background-image:
+ linear-gradient(90deg,rgba(13,35,57,.91) 0%,rgba(13,35,57,.91) 48%,rgba(13,35,57,.91) 100%),
+ url("../images/legal/03-courthouse.jpg")!important;
+ background-size:cover!important;background-position:center 48%!important;
+}
+.hero h1,.hero-copy>p,.hero-meta,.hero-seal{ text-shadow:0 1px 3px rgba(0,0,0,.28) }
+.inner-hero{
+ background-image:
+ linear-gradient(90deg,rgba(16,43,66,.91),rgba(16,43,66,.91)),
+ url("../images/legal/06-justice-statue.jpg")!important;
+ background-size:cover!important;background-position:center 45%!important;
+}
+.inner-hero h1,.inner-hero p,.inner-hero .section-kicker{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.22)}
+.band-section{
+ background-image:
+ linear-gradient(90deg,rgba(20,43,67,.94),rgba(20,43,67,.94)),
+ url("../images/legal/02-law-books.jpg")!important;
+ background-size:cover!important;background-position:center!important;
+ color:#fff!important;
+}
+.band-grid h2,.band-grid>div:first-child p{color:#fff!important}
+.band-section .value-list>div{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28)}
+.band-section .value-list strong{color:#fff}.band-section .value-list small{color:#e1eaf0}
+.pillar-card:after{width:78px;height:55px;left:13px;bottom:12px}
+.pillar-card:nth-child(1):after{background-image:url("../images/legal/20-research-library.jpg")}
+.pillar-card:nth-child(2):after{background-image:url("../images/legal/15-legal-consultation.jpg")}
+.pillar-card:nth-child(3):after{background-image:url("../images/legal/17-document-review.jpg")}
+.pillar-card:nth-child(4):after{background-image:url("../images/legal/14-city-architecture.jpg")}
+.revenue-grid article:nth-child(1):after{background-image:url("../images/legal/17-document-review.jpg")}
+.revenue-grid article:nth-child(2):after{background-image:url("../images/legal/20-research-library.jpg")}
+.revenue-grid article:nth-child(3):after{background-image:url("../images/legal/12-constitution.jpg")}
+.revenue-grid article:nth-child(4):after{background-image:url("../images/legal/18-modern-law-office.jpg")}
+.revenue-grid article:nth-child(5):after{background-image:url("../images/legal/19-corporate-meeting.jpg")}
+.revenue-grid article:nth-child(6):after{background-image:url("../images/legal/21-teamwork.jpg")}
+.content-card:after{
+ width:min(260px,48%);height:96px;
+ border:4px solid #fff;border-radius:9px;
+ box-shadow:0 4px 16px rgba(17,47,69,.16);
+}
+.content-card:nth-child(1):after{background-image:url("../images/legal/01-justice-scales.jpg")}
+.content-card:nth-child(2):after{background-image:url("../images/legal/18-modern-law-office.jpg")}
+.content-card:nth-child(3):after{background-image:url("../images/legal/20-research-library.jpg")}
+.content-card:nth-child(4):after{background-image:url("../images/legal/17-document-review.jpg")}
+.content-card:nth-child(5):after{background-image:url("../images/legal/16-professional-team.jpg")}
+.content-card:nth-child(6):after{background-image:url("../images/legal/22-business-planning.jpg")}
+.content-card:nth-child(7):after{background-image:url("../images/legal/23-legal-writing.jpg")}
+@media(max-width:680px){
+ .hero{background-image:linear-gradient(90deg,rgba(13,35,57,.93),rgba(13,35,57,.93)),url("../images/legal/03-courthouse.jpg")!important}
+ .inner-hero{background-image:linear-gradient(90deg,rgba(16,43,66,.93),rgba(16,43,66,.93)),url("../images/legal/06-justice-statue.jpg")!important}
+ .pillar-card:after{width:58px;height:42px}
+ .content-card:after{width:min(190px,58%);height:72px}
+}
