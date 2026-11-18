@@ -27,6 +27,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No image changes to commit."
           else
-            git commit -m "Add 14 locally stored legal images"
+            git commit -m "Add locally stored legal images"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
