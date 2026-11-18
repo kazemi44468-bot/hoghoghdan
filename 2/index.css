@@ -13105,3 +13105,47 @@ input:focus, textarea:focus, select:focus
    visibility: hidden;
    z-index: 154;
 }
+
+/* تکمیل قالب موجود برای نمایشگرهای کوچک و بخش پایانی */
+#page1PageFooter1{
+ min-height:118px;
+ height:auto!important;
+ background-color:#07527a;
+ background-image:url('images/flower-swirl10.png');
+ background-repeat:repeat;
+ background-position:center top;
+ border-top:3px solid #d4b77f;
+ box-sizing:border-box;
+}
+#page1PageFooter1_Container{height:auto!important;min-height:115px}
+.foundation-footer-inner{
+ width:min(950px,calc(100% - 32px));
+ min-height:115px;
+ margin:auto;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:24px;
+ padding:15px 0;
+ color:#fff;
+ text-align:right;
+ box-sizing:border-box;
+}
+.foundation-footer-inner strong{font-size:16px;color:#fff}
+.foundation-footer-inner p{font-size:11px;color:#d8e7ef;margin:4px 0 0;max-width:390px;line-height:1.9}
+.foundation-footer-inner nav{display:flex;flex-wrap:wrap;gap:8px}
+.foundation-footer-inner nav a{
+ color:#f3f7fa;background:#1d6a94;border:1px solid #ffffff38;
+ border-radius:4px;padding:6px 10px;font-size:11px;text-decoration:none
+}
+.foundation-footer-inner nav a:hover{background:#fff;color:#07527a}
+.foundation-footer-inner small{font-size:10px;color:#d8e7ef}
+@media(max-width:980px){
+ #container{width:100%!important;max-width:950px;overflow:hidden}
+ #PageHeader1,#page1PageHeader1,#page1PageFooter1{width:100%!important}
+}
+@media(max-width:680px){
+ .foundation-footer-inner{flex-direction:column;align-items:flex-start;gap:10px}
+ .foundation-footer-inner nav{gap:5px}
+ .foundation-footer-inner nav a{font-size:10px}
+}
