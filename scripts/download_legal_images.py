@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Trigger update: download the 14 local legal-site images through GitHub Actions.
+# Trigger update: download local legal-site images through GitHub Actions.
 """
-دانلود ۱۱ تصویر مرتبط با موضوعات حقوقی برای وب‌سایت شبکه حقوق‌دانان
+دانلود تصاویر تکمیلی مرتبط با موضوعات حقوقی برای وب‌سایت شبکه حقوق‌دانان
 اجرا: python scripts/download_legal_images.py
 نیازمندی: Python 3.9+ (بدون نصب کتابخانه جانبی)
 """
@@ -26,6 +26,16 @@ PHOTOS = [
     ("12-constitution.jpg", "photo-1586339949216-35c2747cc36d"),
     ("13-office-law.jpg", "photo-1497366754035-f200968a6e72"),
     ("14-city-architecture.jpg", "photo-1486406146926-c627a92ad1ab"),
+    ("15-legal-consultation.jpg", "photo-1556761175-b413da4baf72"),
+    ("16-professional-team.jpg", "photo-1521737711867-e3b97375f902"),
+    ("17-document-review.jpg", "photo-1455390582262-044cdead277a"),
+    ("18-modern-law-office.jpg", "photo-1497366811353-6870744d04b2"),
+    ("19-corporate-meeting.jpg", "photo-1551836022-d5d88e9218df"),
+    ("20-research-library.jpg", "photo-1524995997946-a1c2e315a42f"),
+    ("21-teamwork.jpg", "photo-1522071820081-009f0129c71c"),
+    ("22-business-planning.jpg", "photo-1553877522-43269d4ea984"),
+    ("23-legal-writing.jpg", "photo-1455390582262-044cdead277a"),
+    ("24-modern-courthouse.jpg", "photo-1497366754035-f200968a6e72"),
 ]
 
 def download(filename: str, photo_id: str) -> bool:
