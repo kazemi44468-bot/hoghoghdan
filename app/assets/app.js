@@ -142,7 +142,7 @@ else if(type==='event'){t='ثبت رویداد آموزشی';body='<div class="d
 else if(type==='service'){t='تعریف خدمت جدید';body='<div class="dialog-grid">'+field('عنوان خدمت','title','عنوان خدمت')+field('مرکز ارائه‌دهنده','owner','نام مرکز')+'<label class="field wide">شرح خدمت<textarea name="details" required></textarea></label></div>'}
 else if(type==='invoice'){t='ثبت صورتحساب آزمایشی';body='<div class="dialog-grid">'+field('شرح صورتحساب','title','عنوان خدمت')+field('مبلغ (تومان)','amount','مبلغ','number')+field('شناسه درخواست','ref','شماره پیگیری')+'</div>'}
 else if(type==='user'){t='افزودن کاربر نمایشی';body='<div class="dialog-grid">'+field('نام کاربر','name','نام')+field('نقش','level','نقش سازمانی')+field('راه ارتباطی','contact','ایمیل یا شماره')+'</div>'}
-title.textContent=t;box.innerHTML=body;dlg.dataset.type=type;dlg.showModal();
+title.textContent=t;box.innerHTML=body;dlg.dataset.type=type;if(type==='expert'&&Number.isInteger(extra)){const p=data.experts[extra];if(p){dlg.dataset.editIndex=String(extra);for(const [k,val] of Object.entries({name:p.name,city:p.city,field:p.field,level:p.level,education:p.education,experience:p.experience,credential:p.credential,contact:p.contact,email:p.email,tags:(p.tags||[]).join('، '),bio:p.bio,documents:(p.documents||[]).join('، ')})){const el=box.querySelector('[name="'+k+'"]');if(el)el.value=val}}}else{delete dlg.dataset.editIndex}dlg.showModal();
 }
 function showExpertProfile(index){
 const x=data.experts[index];if(!x)return;
@@ -162,7 +162,7 @@ if(type==='request'){
 const id='DT-1405-'+String(data.requests.length+1).padStart(3,'0');
 data.requests.unshift({id,name:v.name,type:roleNames[role],subject:v.subject,category:v.category,status:'جدید',date:'۱۴۰۵/۰۸/۲۸',assignee:'تعیین نشده',priority:v.priority});
 data.activities.unshift({icon:'▤',title:'درخواست جدید ثبت شد',meta:v.name+' · '+id,time:'اکنون'});toast('درخواست در محیط آزمایشی ثبت شد: '+id);
-}else if(type==='expert'){data.experts.unshift({name:v.name,field:v.field,level:v.level,city:v.city,tags:(v.tags||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),education:v.education,experience:v.experience,credential:v.credential,contact:v.contact,email:v.email,bio:v.bio||'اطلاعات تکمیلی ثبت نشده است.',documents:(v.documents||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),status:'در حال بررسی',verification:'در حال بررسی'});data.activities.unshift({icon:'♙',title:'پروفایل تخصصی جدید ثبت شد',meta:v.name+' · در انتظار اعتبارسنجی',time:'اکنون'});toast('پروفایل ثبت شد و در صف اعتبارسنجی قرار گرفت.')}
+}else if(type==='expert'){const profile={name:v.name,field:v.field,level:v.level,city:v.city,tags:(v.tags||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),education:v.education,experience:v.experience,credential:v.credential,contact:v.contact,email:v.email,bio:v.bio||'اطلاعات تکمیلی ثبت نشده است.',documents:(v.documents||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),status:'در حال بررسی',verification:'در حال بررسی'};const editIndex=$('#action-dialog').dataset.editIndex;if(editIndex!==undefined&&data.experts[Number(editIndex)]){Object.assign(data.experts[Number(editIndex)],profile);toast('پروفایل ویرایش شد و برای بررسی مجدد قرار گرفت.')}else{data.experts.unshift(profile);data.activities.unshift({icon:'♙',title:'پروفایل تخصصی جدید ثبت شد',meta:v.name+' · در انتظار اعتبارسنجی',time:'اکنون'});toast('پروفایل ثبت شد و در صف اعتبارسنجی قرار گرفت.')}}
 else if(type==='project'){data.projects.unshift({title:v.title,owner:v.owner,progress:Math.max(0,Math.min(100,Number(v.progress)||0)),due:v.due,status:'در حال اجرا'});toast('پروژه جدید ایجاد شد.')}
 else{toast('اطلاعات در این نسخه نمایشی ثبت شد؛ برای ذخیره ساختاریافته در نسخه عملیاتی به سرویس مرکزی نیاز است.')}
 save();$('#action-dialog').close();render(current);
@@ -179,6 +179,7 @@ const action=e.target.closest('[data-action]');if(!action)return;
 const kind=action.dataset.action;
 if(kind==='notify')toast(action.dataset.message||'این قابلیت در نسخه عملیاتی فعال می‌شود.');
 if(kind==='view-expert')showExpertProfile(Number(action.dataset.index));
+if(kind==='edit-expert'){const idx=Number(action.dataset.index);$('#action-dialog').close();openDialog('expert',idx)}
 if(kind==='verify-expert'){const p=data.experts[Number(action.dataset.index)];if(p){p.verification=action.dataset.status;p.status=action.dataset.status;save();showExpertProfile(Number(action.dataset.index));toast('وضعیت اعتبارسنجی تغییر کرد.')}}
 if(kind==='toggle-task'){const t=data.tasks[Number(action.dataset.index)];if(t){t.done=!t.done;save();render(current)}}
 if(kind==='cycle-request'){const r=data.requests.find(x=>x.id===action.dataset.id);if(r){const states=['جدید','در حال بررسی','نیازمند تکمیل اطلاعات','ارجاع‌شده','پذیرفته‌شده','مختومه'];r.status=states[(states.indexOf(r.status)+1)%states.length];save();render(current);toast('وضعیت درخواست به‌روزرسانی شد.')}}
