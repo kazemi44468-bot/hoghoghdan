@@ -124,3 +124,16 @@
 .datar-hero-foot .container{font-size:8px;gap:9px}
 }
 @media(max-width:390px){.datar-audience-grid{grid-template-columns:1fr}.datar-hero-actions .datar-btn{width:100%}}
+
+
+/* معرفی کوتاه داتار در صفحه نخست */
+.datar-home-promo{padding:28px 0;background:#edf1f3;border-top:1px solid #e3e9ec;border-bottom:1px solid #e3e9ec}
+.datar-home-promo-inner{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:18px;padding:19px 22px;background:linear-gradient(105deg,#17324d,#254b66);border-radius:12px;box-shadow:0 10px 28px rgba(23,50,77,.09)}
+.datar-home-promo-mark{width:55px;height:55px;display:grid;place-items:center;border:1px solid rgba(226,197,148,.7);border-radius:15px 15px 5px 15px;color:#e1c18b;font-size:32px;font-weight:700}
+.datar-home-promo-copy>span{font-size:9px;color:#d9bd8d}
+.datar-home-promo-copy h2{font-size:16px;color:#fff;margin:2px 0 3px}
+.datar-home-promo-copy p{font-size:9px;color:#d0dbe2;margin:0;line-height:2}
+.datar-home-promo-actions{display:flex;flex-direction:column;gap:8px;min-width:180px}
+.datar-home-promo-actions a{font-size:9px;font-weight:700;text-decoration:none;color:#e5c994}
+.datar-home-promo-actions a+ a{color:#d5e0e7}
+@media(max-width:680px){.datar-home-promo-inner{grid-template-columns:48px 1fr;padding:15px;gap:12px}.datar-home-promo-mark{width:45px;height:45px;font-size:26px}.datar-home-promo-copy h2{font-size:13px}.datar-home-promo-actions{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:15px;padding-right:59px}}
