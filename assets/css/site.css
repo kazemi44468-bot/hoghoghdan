@@ -644,3 +644,130 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
   .revenue-grid article:after{height:88px!important}
   .content-card:after{height:100px!important}
 }
+
+
+/* بازگردانی نقش‌مایه آبی در هدر و فوتر با وضوح بیشتر */
+.site-header{
+  background-color:#07527a!important;
+  background-image:linear-gradient(rgba(3,48,74,.48),rgba(3,48,74,.48)),url("../images/blue-floral-pattern.svg")!important;
+  background-repeat:repeat!important;
+  background-position:center top!important;
+  background-size:auto,auto!important;
+  box-shadow:0 5px 22px rgba(13,43,65,.16)!important;
+}
+.site-header .header-main{background:transparent!important}
+.site-header .brand{color:#fff!important}
+.site-header .brand strong{color:#fff!important}
+.site-header .brand small{color:#e0eaf0!important}
+.site-header .brand-mark{
+  background:rgba(255,255,255,.94)!important;
+  border:1px solid #d8c49e!important;
+  box-shadow:0 2px 9px rgba(0,0,0,.12);
+}
+.site-header .header-quiet-link,
+.site-header .text-link{color:#f0f5f8!important}
+.site-header .header-join{
+  color:#18344d!important;
+  background:#ead8b7!important;
+  border:1px solid #f0dfc1!important;
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+.site-header .header-join:hover{background:#fff!important;color:#173b58!important}
+.site-header .main-nav{
+  background:rgba(2,39,62,.24)!important;
+  border-top:1px solid rgba(255,255,255,.20)!important;
+}
+.site-header .nav-inner>a,
+.site-header .nav-inner>.nav-dropdown>.nav-parent{
+  color:#f3f7fa!important;
+}
+.site-header .nav-inner>a:hover,
+.site-header .nav-inner>a.active,
+.site-header .nav-dropdown:hover>.nav-parent,
+.site-header .nav-dropdown:focus-within>.nav-parent{
+  color:#fff!important;
+  background:rgba(255,255,255,.15)!important;
+}
+.site-header .nav-inner>a.active{box-shadow:inset 0 -2px #e4c58f!important}
+.site-header .nav-toggle{color:#fff!important}
+.site-header .dropdown-menu{
+  background:#fff!important;
+  border:1px solid #dfe7ed!important;
+  box-shadow:0 12px 28px rgba(12,39,60,.18)!important;
+}
+.site-header .dropdown-menu a{color:#29465f!important}
+.site-header .dropdown-menu a:hover{background:#edf3f7!important;color:#07527a!important}
+
+.site-footer{
+  color:#f1f6f9!important;
+  background-color:#07527a!important;
+  background-image:linear-gradient(rgba(3,48,74,.58),rgba(3,48,74,.58)),url("../images/blue-floral-pattern.svg")!important;
+  background-repeat:repeat!important;
+  background-position:center top!important;
+  background-size:auto,auto!important;
+  border-top:3px solid #d4b77f!important;
+  box-shadow:0 -4px 18px rgba(7,39,62,.08);
+}
+.site-footer .footer-main{background:transparent!important}
+.site-footer .footer-brand strong,
+.site-footer .footer-main>div:not(:first-child)>b{color:#fff!important}
+.site-footer .footer-brand p,
+.site-footer .footer-main a,
+.site-footer .footer-bottom{color:#e0ebf1!important}
+.site-footer .footer-main a:hover{color:#f1d7a9!important}
+.site-footer .footer-motto{color:#f7f3e9!important}
+.site-footer .footer-motto em{color:#e5c995!important}
+.site-footer .footer-bottom{
+  border-top:1px solid rgba(255,255,255,.22)!important;
+}
+
+/* بازطراحی دکمه بازگشت به بالا؛ مربع نرم با جزئیات طلایی */
+#back-to-top{
+  width:46px!important;
+  height:46px!important;
+  left:20px!important;
+  bottom:22px!important;
+  border:1px solid #cbd9e2!important;
+  border-bottom:3px solid #b18a50!important;
+  border-radius:10px!important;
+  background:rgba(255,255,255,.97)!important;
+  color:#174c70!important;
+  box-shadow:0 7px 20px rgba(19,53,76,.18)!important;
+  font:700 23px Vazirmatn,sans-serif!important;
+  transform:translateY(9px) scale(.96);
+}
+#back-to-top.is-visible{transform:translateY(0) scale(1)!important}
+#back-to-top:hover{
+  background:#07527a!important;
+  color:#fff!important;
+  border-color:#07527a!important;
+  border-bottom-color:#e1c18a!important;
+  box-shadow:0 9px 23px rgba(7,50,78,.28)!important;
+}
+#back-to-top:focus-visible{outline:3px solid rgba(177,138,80,.42)!important;outline-offset:3px}
+
+/* قاب ظریف و یکدست برای تصاویر کارت‌ها و بخش‌های محتوایی */
+.pillar-card:after,
+.revenue-grid article:after,
+.content-card:after{
+  border:1px solid rgba(201,215,225,.95)!important;
+  border-radius:10px!important;
+  outline:1px solid rgba(255,255,255,.82);
+  outline-offset:-8px;
+  box-shadow:0 4px 14px rgba(18,48,70,.10)!important;
+  background-color:#e9eef2!important;
+  transition:filter .25s ease,background-position .35s ease;
+}
+.pillar-card:hover:after,
+.revenue-grid article:hover:after,
+.content-card:hover:after{
+  filter:saturate(1.06) contrast(1.025);
+  background-position:center 52%!important;
+}
+.pillar-card:after{margin:18px 0 0!important}
+.revenue-grid article:after{border-radius:10px!important}
+.content-card:after{border-radius:10px!important}
+@media(max-width:680px){
+  #back-to-top{left:12px!important;bottom:88px!important;width:42px!important;height:42px!important}
+  .site-header .header-main{min-height:78px}
+}
