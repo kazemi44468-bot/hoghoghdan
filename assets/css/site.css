@@ -913,3 +913,94 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
 @media(max-width:760px){
  .dropdown-menu{background:#f5eedf!important}
 }
+
+
+/* صفحه معرفی توسعه‌یافته شبکه حقوق‌دانان */
+.about-hero{
+ background:
+ linear-gradient(105deg,rgba(4,48,75,.94),rgba(11,83,119,.88)),
+ url("../images/blue-floral-pattern.svg") repeat center center!important;
+ padding:55px 0 48px!important;
+}
+.about-hero h1{max-width:900px;font-size:clamp(27px,3.2vw,38px)!important;line-height:1.75}
+.about-hero p{max-width:900px!important;font-size:13px!important;line-height:2.25!important}
+.about-hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.about-hero-tags span{padding:5px 12px;border:1px solid rgba(233,210,168,.42);border-radius:5px;background:rgba(255,255,255,.09);color:#f5e8ce;font-size:10px}
+.about-layout{display:grid;grid-template-columns:225px minmax(0,1fr);gap:24px;padding-block:32px 68px}
+.about-index{top:18px;max-height:calc(100vh - 36px);overflow:auto}
+.about-index a{padding:8px 10px!important;border-bottom:1px solid #edf0f2;border-radius:5px!important}
+.about-index a:hover{background:#f2ead9!important;color:#745d35!important}
+.about-content .content-card{padding:26px 28px;margin-bottom:18px;scroll-margin-top:85px}
+.about-content .content-card h2{font-size:19px;line-height:1.8;margin-bottom:12px}
+.about-content .content-card>p{font-size:12px;line-height:2.25;color:#5f7080}
+.about-kicker{display:inline-block;color:#a27b43;font-size:9px;font-weight:800;letter-spacing:.2px;margin-bottom:5px}
+.about-lead{position:relative;overflow:hidden}
+.about-lead:before{content:"";position:absolute;inset:0 0 0 auto;width:4px;background:linear-gradient(#d9bd88,#8daec1)}
+.about-callout{margin-top:17px;padding:14px 17px;border-right:3px solid #b18a50;border-radius:7px;background:#f7f2e8;color:#5f594d;font-size:11px;line-height:2.1}
+.about-mission-grid,.about-case-grid,.about-academy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:17px 0}
+.about-mission-grid>div,.about-case-grid>div,.about-academy-grid>div{
+ padding:15px 16px;border:1px solid #e3e8eb;border-radius:9px;
+ background:linear-gradient(145deg,#fff,#f8fafb);
+}
+.about-mission-grid b,.about-case-grid b,.about-academy-grid b{display:block;color:#234c69;font-size:12px;margin-bottom:5px}
+.about-mission-grid p,.about-case-grid p,.about-academy-grid p{margin:0!important;font-size:10.5px!important;line-height:2!important;color:#6c7a87!important}
+.about-process{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:19px 0}
+.about-process>div{position:relative;min-height:112px;padding:15px 13px 12px;border:1px solid #e1e7eb;border-radius:9px;background:#f9fbfc}
+.about-process i,.about-use-grid i{display:grid;place-items:center;width:27px;height:27px;margin-bottom:8px;border-radius:6px;background:#ead9b8;color:#4f493c;font-size:11px;font-style:normal;font-weight:800}
+.about-process b{display:block;color:#254d69;font-size:11px}
+.about-process small{display:block;color:#778592;font-size:9px;line-height:1.9;margin-top:4px}
+.about-capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:18px 0}
+.about-capability-grid article{position:relative;min-height:165px;padding:17px 15px;border:1px solid #e2e8ec;border-radius:9px;background:#fff;box-shadow:0 5px 16px rgba(25,55,76,.035);transition:transform .2s,border-color .2s,box-shadow .2s}
+.about-capability-grid article:hover{transform:translateY(-3px);border-color:#d2bd96;box-shadow:0 10px 24px rgba(25,55,76,.08)}
+.about-capability-grid article>span{display:inline-block;color:#b18a50;font-size:10px;font-weight:800;margin-bottom:8px}
+.about-capability-grid h3{font-size:12px!important;color:#234c69!important;margin:0 0 7px!important}
+.about-capability-grid p{font-size:10px!important;line-height:2!important;color:#71808d!important;margin:0!important}
+.about-muted{font-size:10px!important;color:#87919a!important;border-top:1px solid #edf0f2;padding-top:12px;margin-top:17px}
+.about-audience-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:17px 0}
+.about-audience-list>div{padding:14px 15px;border:1px solid #e2e8ec;border-radius:8px;background:#fbfcfd}
+.about-audience-list b{display:block;color:#234c69;font-size:11px;margin-bottom:5px}
+.about-audience-list p{font-size:10px!important;line-height:2!important;color:#71808d!important;margin:0 0 7px!important}
+.about-audience-list small{display:inline-block;color:#9a7745;font-size:9px;padding-top:5px;border-top:1px solid #e8e1d4}
+.about-use-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.about-use-grid>div{display:flex;gap:11px;align-items:flex-start;padding:13px;border:1px solid #e4e9ed;border-radius:8px;background:#fff}
+.about-use-grid i{flex:0 0 27px;margin:0}
+.about-use-grid p{margin:0!important;font-size:10.5px!important;line-height:2!important;color:#657584!important}
+.about-join-card{background:linear-gradient(145deg,#fff,#f8fafb)!important;border-color:#d9e3e9!important}
+.about-join-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:17px}
+.about-join-grid>div{padding:16px;border:1px solid #e2e8ec;border-radius:8px;background:#fff}
+.about-join-grid b{display:block;color:#234c69;font-size:11px;margin-bottom:7px}
+.about-join-grid p{font-size:10px!important;line-height:2!important;color:#71808d!important;min-height:60px;margin:0 0 10px!important}
+.about-join-grid a{font-size:10px;font-weight:800;color:#99733e!important}
+@media(max-width:900px){
+ .about-layout{grid-template-columns:190px minmax(0,1fr);gap:16px}
+ .about-capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .about-process{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .about-join-grid{grid-template-columns:1fr}
+ .about-join-grid p{min-height:0}
+}
+@media(max-width:680px){
+ .about-hero{padding:37px 0 32px!important}
+ .about-hero h1{font-size:24px!important}
+ .about-hero p{font-size:11px!important}
+ .about-hero-tags{gap:6px;margin-top:15px}
+ .about-hero-tags span{font-size:8px;padding:4px 8px}
+ .about-layout{grid-template-columns:1fr;padding-block:17px 45px}
+ .about-index{position:static;max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;padding:12px}
+ .about-index b{grid-column:1/-1}
+ .about-index a{font-size:9px!important;padding:6px!important}
+ .about-content .content-card{padding:18px 15px;margin-bottom:12px}
+ .about-content .content-card h2{font-size:16px}
+ .about-content .content-card>p{font-size:10.5px;line-height:2.15}
+ .about-mission-grid,.about-case-grid,.about-academy-grid,.about-audience-list,.about-use-grid{grid-template-columns:1fr;gap:8px}
+ .about-capability-grid{grid-template-columns:1fr 1fr;gap:8px}
+ .about-capability-grid article{min-height:0;padding:13px 11px}
+ .about-capability-grid h3{font-size:10px!important}
+ .about-capability-grid p{font-size:9px!important}
+ .about-process{grid-template-columns:1fr 1fr;gap:7px}
+ .about-process>div{min-height:100px;padding:11px 10px}
+ .about-join-grid{gap:8px}
+}
+@media(max-width:390px){
+ .about-capability-grid{grid-template-columns:1fr}
+ .about-process{grid-template-columns:1fr}
+}
