@@ -1073,3 +1073,19 @@ html{scroll-padding-top:142px}
  .portal-brand{width:88px;height:88px;margin-bottom:13px}
  html{scroll-padding-top:82px}
 }
+
+
+/* هدر مینیمال: نمایش نشان رسمی بدون عنوان و قاب */
+.site-header .header-main{min-height:88px;height:88px}
+.site-header .brand{display:inline-flex;align-items:center;justify-content:center;gap:0;width:auto;min-width:0}
+.site-header .brand-mark{position:relative;display:grid;place-items:center;width:76px;height:76px;padding:0;border:0!important;border-radius:50%!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+.site-header .brand-mark::before{content:"";position:absolute;inset:5px;border:1px solid rgba(225,199,151,.52);border-radius:50%;pointer-events:none}
+.site-header .brand-mark::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.13),transparent 69%);pointer-events:none}
+.site-header .brand-mark img{position:relative;z-index:1;display:block;width:68px;height:68px;max-width:none;object-fit:contain;padding:0;border:0;border-radius:0;background:transparent;filter:drop-shadow(0 2px 5px rgba(8,28,48,.22))}
+.site-header .brand>span:not(.brand-mark){display:none!important}
+@media(max-width:680px){
+ .site-header .header-main{height:72px;min-height:72px}
+ .site-header .brand-mark{width:66px;height:66px}
+ .site-header .brand-mark img{width:60px;height:60px}
+ .site-header .brand-mark::before{inset:4px}
+}
