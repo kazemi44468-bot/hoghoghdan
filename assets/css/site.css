@@ -1325,3 +1325,53 @@ html{scroll-padding-top:142px}
   padding:0;
  }
 }
+
+
+/* نشان و عنوان فهرست کناری در تمام صفحات ثابت؛ فقط پیوندها اسکرول می‌شوند */
+.side-index{
+ display:flex!important;
+ flex-direction:column!important;
+ height:calc(100vh - 158px);
+ max-height:calc(100vh - 158px)!important;
+ overflow:hidden!important;
+}
+.side-index>.side-index-brand,
+.side-index>.side-index-heading{
+ flex:0 0 auto!important;
+ position:relative!important;
+ top:auto!important;
+ z-index:2;
+ background:#fff;
+}
+.side-index>.side-index-heading{
+ padding:0 5px 8px;
+ border-bottom:1px solid #edf0f2;
+}
+.side-index>.side-index-heading b{margin:0!important}
+.side-index>.side-index-scroll{
+ flex:1 1 auto;
+ min-height:0;
+ overflow-y:auto;
+ overflow-x:hidden;
+ overscroll-behavior:contain;
+ scrollbar-width:thin;
+ scrollbar-color:#d7c39f #f5f7f8;
+ padding:7px 2px 4px;
+}
+.side-index>.side-index-scroll>a{display:block}
+@media(max-width:680px){
+ .side-index{
+  display:block!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+ }
+ .side-index>.side-index-brand,
+ .side-index>.side-index-heading{position:static!important}
+ .side-index>.side-index-scroll{
+  flex:none;
+  min-height:0;
+  overflow:visible;
+  padding:0;
+ }
+}
