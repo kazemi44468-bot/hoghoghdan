@@ -1219,3 +1219,69 @@ html{scroll-padding-top:142px}
 @media(max-width:380px){
  .services-domain-grid,.social-domain-grid{grid-template-columns:1fr}
 }
+
+
+/* لوگوی ثابت در فهرست کناری + حلقه تزئینی چندلایه */
+.side-index .side-index-brand{
+ position:sticky!important;
+ top:0!important;
+ z-index:8;
+ min-height:128px!important;
+ margin:0 -1px 12px!important;
+ padding:10px 4px 15px!important;
+ background:#fff!important;
+ isolation:isolate;
+}
+.side-index .side-index-brand::before{
+ top:8px!important;
+ width:104px!important;
+ height:104px!important;
+ border:1px solid rgba(177,138,80,.72)!important;
+ box-shadow:0 0 0 5px rgba(177,138,80,.09),0 0 0 10px rgba(177,138,80,.045);
+}
+.side-index .side-index-brand::after{
+ content:"";
+ position:absolute;
+ top:15px;
+ left:50%;
+ width:90px;
+ height:90px;
+ transform:translateX(-50%);
+ border:1px dashed rgba(177,138,80,.48);
+ border-radius:50%;
+ pointer-events:none;
+}
+.side-index .side-index-brand img{
+ width:78px!important;
+ height:78px!important;
+ flex-basis:78px!important;
+ filter:drop-shadow(0 2px 4px rgba(20,48,67,.16));
+}
+.side-index .side-index-brand:hover::before{
+ border-color:rgba(177,138,80,.9)!important;
+}
+@media(max-width:680px){
+ .side-index .side-index-brand{
+  position:static!important;
+  min-height:82px!important;
+  margin:0 0 7px!important;
+  padding:2px 4px 9px!important;
+  background:transparent!important;
+ }
+ .side-index .side-index-brand::before{
+  top:2px!important;
+  width:66px!important;
+  height:66px!important;
+  box-shadow:0 0 0 3px rgba(177,138,80,.08);
+ }
+ .side-index .side-index-brand::after{
+  top:6px;
+  width:58px;
+  height:58px;
+ }
+ .side-index .side-index-brand img{
+  width:58px!important;
+  height:58px!important;
+  flex-basis:58px!important;
+ }
+}
