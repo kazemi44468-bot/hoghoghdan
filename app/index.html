@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17324d">
+<meta name="description" content="داتار؛ سکوی ملی خدمات، دانش و همکاری حقوقی">
+<link rel="icon" href="../assets/images/logo.png">
+<link rel="apple-touch-icon" href="../assets/images/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>داتار | سکوی ملی خدمات حقوقی</title>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="../index.html"><span class="brand-symbol"><img src="../assets/images/logo.png" alt=""></span><span><b>داتار</b><small>DĀTAR · شبکه حقوقی ایران</small></span></a>
+  <div class="workspace-switch"><span class="workspace-dot"></span><span><b>فضای کاری شبکه</b><small>محیط آزمایشی</small></span><span class="chevron">⌄</span></div>
+  <nav class="side-nav" id="side-nav" aria-label="منوی اصلی برنامه">
+    <div class="nav-caption">فضای کاری</div>
+    <button class="nav-link active" data-view="overview"><span class="nav-icon">⌂</span>نمای کلی</button>
+    <button class="nav-link" data-view="requests"><span class="nav-icon">▤</span>درخواست‌ها و پرونده‌ها <i id="request-badge">۳</i></button>
+    <button class="nav-link" data-view="projects"><span class="nav-icon">◫</span>پروژه‌ها و وظایف</button>
+    <div class="nav-caption">شبکه تخصص</div>
+    <button class="nav-link" data-view="experts"><span class="nav-icon">♙</span>اعضا و متخصصان</button>
+    <button class="nav-link" data-view="groups"><span class="nav-icon">⌘</span>کارگروه‌ها و مراکز</button>
+    <div class="nav-caption">دانش و یادگیری</div>
+    <button class="nav-link" data-view="knowledge"><span class="nav-icon">▥</span>بانک دانش حقوقی</button>
+    <button class="nav-link" data-view="documents"><span class="nav-icon">▧</span>قراردادها و اسناد</button>
+    <button class="nav-link" data-view="academy"><span class="nav-icon">▦</span>آکادمی و رویدادها</button>
+    <div class="nav-caption">تعامل و کسب‌وکار</div>
+    <button class="nav-link" data-view="messages"><span class="nav-icon">✉</span>پیام‌ها و جلسات</button>
+    <button class="nav-link" data-view="market"><span class="nav-icon">◈</span>بازار خدمات</button>
+    <button class="nav-link" data-view="finance"><span class="nav-icon">▣</span>امور مالی</button>
+    <div class="nav-caption">هوشمندسازی و راهبری</div>
+    <button class="nav-link" data-view="assistant"><span class="nav-icon">✧</span>دستیار حقوقی</button>
+    <button class="nav-link" data-view="reports"><span class="nav-icon">▥</span>گزارش‌ها و تحلیل</button>
+    <button class="nav-link" data-view="admin"><span class="nav-icon">⚙</span>مدیریت شبکه</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="secure-note"><span>◇</span><div><b>حریم حرفه‌ای</b><small>دسترسی‌ها در نسخه عملیاتی تفکیک می‌شوند.</small></div></div><a class="back-site" href="../index.html">← بازگشت به وب‌سایت داتار</a></div>
+</aside>
+<div class="main-area">
+<header class="topbar">
+  <button class="mobile-menu" id="mobile-menu" aria-label="بازکردن منو">☰</button>
+  <div class="crumb"><span>داتار</span><b>/</b><strong id="crumb-title">نمای کلی</strong></div>
+  <div class="top-actions">
+    <label class="global-search"><span>⌕</span><input id="global-search" placeholder="جست‌وجو در داتار..." aria-label="جست‌وجو"></label>
+    <button class="icon-button" id="notifications" aria-label="اعلان‌ها">♧<i></i></button>
+    <select id="role-switch" aria-label="تغییر نقش نمایشی"><option value="manager">مدیر شبکه</option><option value="lawyer">عضو متخصص</option><option value="client">متقاضی خدمات</option></select>
+    <button class="profile-button" id="profile-button"><span class="avatar">د</span><span><b id="profile-role">مدیر شبکه</b><small>حساب نمایشی</small></span><span class="chevron">⌄</span></button>
+  </div>
+</header>
+<main class="page-content" id="page-content" tabindex="-1"></main>
+<footer class="app-footer"><span>داتار · سکوی ملی خدمات و همکاری حقوقی</span><span>نسخه نمایشی تعاملی · اطلاعات نمونه</span></footer>
+</div>
+</div>
+<nav class="mobile-bottom" id="mobile-bottom" aria-label="دسترسی سریع موبایل">
+<button class="active" data-view="overview"><span>⌂</span>خانه</button>
+<button data-view="requests"><span>▤</span>درخواست‌ها</button>
+<button data-view="experts"><span>♙</span>متخصصان</button>
+<button data-view="knowledge"><span>▥</span>دانش</button>
+<button data-view="messages"><span>✉</span>ارتباطات</button>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+<dialog id="action-dialog" class="action-dialog"><form method="dialog" id="dialog-form"><div class="dialog-head"><div><span class="eyebrow">داتار · فرم تعاملی</span><h2 id="dialog-title">ثبت اطلاعات</h2></div><button class="close-dialog" value="cancel" aria-label="بستن">×</button></div><div id="dialog-content"></div><div class="dialog-actions"><button class="btn primary" id="dialog-submit" value="default">ثبت اطلاعات</button><button class="btn ghost" value="cancel">انصراف</button></div></form></dialog>
+<script src="assets/app.js"></script>
+</body>
+</html>
