@@ -1004,3 +1004,72 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
  .about-capability-grid{grid-template-columns:1fr}
  .about-process{grid-template-columns:1fr}
 }
+
+
+/* نشان رسمی در فهرست کناری صفحات و اصلاح جایگاه چسبان هنگام پیمایش */
+html{scroll-padding-top:142px}
+.site-header{z-index:500!important}
+.side-index{
+ position:sticky!important;
+ top:142px!important;
+ max-height:calc(100vh - 158px);
+ overflow-y:auto;
+ overscroll-behavior:contain;
+ scrollbar-width:thin;
+ scrollbar-color:#d7c39f #f5f7f8;
+}
+.side-index-brand{
+ display:flex!important;
+ align-items:center;
+ justify-content:flex-start;
+ gap:10px;
+ margin:-4px -4px 13px!important;
+ padding:10px 9px 13px!important;
+ border-bottom:1px solid #e8edf0;
+ color:#174b6a!important;
+ font-size:10px!important;
+ font-weight:800;
+ line-height:1.7;
+}
+.side-index-brand img{
+ display:block;
+ width:48px;
+ height:48px;
+ padding:4px;
+ object-fit:contain;
+ flex:0 0 48px;
+ background:#fff;
+ border:1px solid #dfc89e;
+ border-radius:9px;
+ box-shadow:0 3px 10px rgba(22,57,79,.09);
+}
+.side-index-brand:hover{background:linear-gradient(90deg,#fbf8f1,transparent);color:#8a6838!important}
+.side-index-brand span{display:block}
+.about-index{top:142px!important;max-height:calc(100vh - 158px)!important}
+.contact-brand{
+ display:flex;align-items:center;gap:12px;
+ width:max-content;max-width:100%;
+ margin:0 0 22px;padding:10px 14px;
+ border:1px solid #e2e8ec;border-radius:10px;
+ background:rgba(255,255,255,.9);
+ color:#214b68;font-size:11px;font-weight:800;
+ box-shadow:0 5px 16px rgba(25,60,82,.06)
+}
+.contact-brand img{width:58px;height:58px;object-fit:contain;padding:4px;background:#fff;border:1px solid #dfc89e;border-radius:8px}
+.portal-brand{
+ display:grid;place-items:center;
+ width:116px;height:116px;margin:0 auto 18px;
+ padding:10px;border-radius:16px;
+ background:#fff;border:1px solid #dfc89e;
+ box-shadow:0 8px 24px rgba(0,20,38,.2),inset 0 0 0 4px #f4efe5
+}
+.portal-brand img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:680px){
+ .side-index{position:static!important;max-height:none!important;overflow:visible}
+ .about-index{position:static!important;max-height:none!important}
+ .side-index-brand{grid-column:1/-1;margin:0 0 7px!important;padding:5px 4px 10px!important}
+ .side-index-brand img{width:40px;height:40px;flex-basis:40px}
+ .contact-brand{margin-bottom:15px}
+ .portal-brand{width:88px;height:88px;margin-bottom:13px}
+ html{scroll-padding-top:82px}
+}
