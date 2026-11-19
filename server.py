@@ -3,7 +3,7 @@
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
-import sqlite3, json, uuid, datetime, os, mimetypes
+import sqlite3, json, uuid, datetime, os, mimetypes, threading, webbrowser
 from contextlib import contextmanager
 
 ROOT = Path(__file__).resolve().parent
@@ -176,4 +176,6 @@ if __name__ == "__main__":
     print("نشانی: http://127.0.0.1:%s/pages/portal.html" % PORT)
     print("پایگاه داده:", DB)
     print("برای توقف، پنجره را ببندید یا Ctrl+C بزنید.\n")
-    ThreadingHTTPServer((HOST,PORT),Handler).serve_forever()
+    httpd = ThreadingHTTPServer((HOST,PORT),Handler)
+    threading.Timer(1.0, lambda: webbrowser.open("http://127.0.0.1:%s/pages/portal.html" % PORT)).start()
+    httpd.serve_forever()
