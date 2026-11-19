@@ -4,6 +4,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import sqlite3, json, uuid, datetime, os, mimetypes
+from contextlib import contextmanager
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
@@ -18,8 +19,20 @@ def connect():
     con.execute("PRAGMA journal_mode=WAL")
     return con
 
+@contextmanager
+def db():
+    con = connect()
+    try:
+        yield con
+        con.commit()
+    except Exception:
+        con.rollback()
+        raise
+    finally:
+        con.close()
+
 def init_db():
-    with connect() as con:
+    with db() as con:
         con.executescript("""
         CREATE TABLE IF NOT EXISTS requests (
           id TEXT PRIMARY KEY,
@@ -83,7 +96,7 @@ class Handler(SimpleHTTPRequestHandler):
             q = parse_qs(urlparse(self.path).query)
             status = q.get("status", [""])[0]
             search = q.get("q", [""])[0].strip()
-            with connect() as con:
+            with db() as con:
                 sql = "SELECT * FROM requests WHERE 1=1"
                 args = []
                 if status:
@@ -97,7 +110,7 @@ class Handler(SimpleHTTPRequestHandler):
             return send_json(self, {"items": rows, "stats": stats, "total": len(rows)})
         if path.startswith("/api/requests/"):
             rid = path.rsplit("/", 1)[-1]
-            with connect() as con:
+            with db() as con:
                 row = con.execute("SELECT * FROM requests WHERE id=?", (rid,)).fetchone()
                 if not row: return send_json(self, {"error":"درخواست پیدا نشد."},404)
                 logs = [dict(x) for x in con.execute("SELECT * FROM activity_log WHERE request_id=? ORDER BY id DESC",(rid,))]
@@ -114,7 +127,7 @@ class Handler(SimpleHTTPRequestHandler):
                     return send_json(self, {"error":"تکمیل همه فیلدهای ضروری الزامی است."},400)
                 rid = str(uuid.uuid4())
                 stamp = now()
-                with connect() as con:
+                with db() as con:
                     count = con.execute("SELECT COUNT(*) FROM requests").fetchone()[0] + 1
                     ref = "HR-" + datetime.datetime.now().strftime("%y%m") + "-" + str(count).zfill(5)
                     con.execute("""INSERT INTO requests
@@ -132,7 +145,7 @@ class Handler(SimpleHTTPRequestHandler):
                 if "status" in updates and updates["status"] not in ["جدید","در حال بررسی","نیازمند تکمیل اطلاعات","ارجاع‌شده","پذیرفته‌شده","مختومه","ردشده"]:
                     return send_json(self,{"error":"وضعیت انتخاب‌شده معتبر نیست."},400)
                 stamp=now()
-                with connect() as con:
+                with db() as con:
                     if not con.execute("SELECT 1 FROM requests WHERE id=?",(rid,)).fetchone():
                         return send_json(self,{"error":"درخواست پیدا نشد."},404)
                     updates["updated_at"]=stamp
@@ -151,7 +164,7 @@ class Handler(SimpleHTTPRequestHandler):
         path=urlparse(self.path).path
         if path.startswith("/api/requests/"):
             rid=path.rsplit("/",1)[-1]
-            with connect() as con:
+            with db() as con:
                 cur=con.execute("DELETE FROM requests WHERE id=?",(rid,))
                 if not cur.rowcount:return send_json(self,{"error":"درخواست پیدا نشد."},404)
             return send_json(self,{"ok":True})
