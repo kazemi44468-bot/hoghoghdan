@@ -300,6 +300,7 @@ $('#profile-button').addEventListener('click',()=>toast('برای تغییر ن�
 $('#role-switch').addEventListener('change',()=>{});
 $('#dialog-form').addEventListener('close',()=>{});
 $('#dialog-form').addEventListener('submit',()=>{});
+if('serviceWorker' in navigator){if(sessionStorage.getItem('datar-sw-refresh'))sessionStorage.removeItem('datar-sw-refresh');navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!sessionStorage.getItem('datar-sw-refresh')){sessionStorage.setItem('datar-sw-refresh','1');location.reload();}});}
 window.addEventListener('error',event=>{console.error('Datar runtime error:',event.error||event.message);document.documentElement.classList.add('app-runtime-error');});
 window.addEventListener('unhandledrejection',event=>{console.error('Datar async error:',event.reason);});
 if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(err=>console.warn('Datar service worker:',err));
