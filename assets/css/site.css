@@ -771,3 +771,145 @@ body{background-color:#f6f9fb!important;background-image:url("../images/site-bac
   #back-to-top{left:12px!important;bottom:88px!important;width:42px!important;height:42px!important}
   .site-header .header-main{min-height:78px}
 }
+
+
+/* فوتر چهارستونه با نشان مستقل و هویت طرح‌دار */
+.footer-grid-refined{
+ display:grid!important;
+ grid-template-columns: .82fr 1.65fr 1fr 1fr!important;
+ gap:30px!important;
+ align-items:center!important;
+ padding-block:34px 30px!important;
+}
+.footer-emblem{
+ min-height:174px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+ border-left:1px solid rgba(236,219,184,.24);
+}
+.footer-emblem:before{
+ content:"";
+ position:absolute;inset:12px 5px;
+ border:1px solid rgba(232,210,168,.24);
+ border-radius:12px;
+ background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
+}
+.footer-emblem:after{
+ content:"";
+ position:absolute;width:92px;height:92px;
+ border:1px solid rgba(233,211,170,.18);
+ border-radius:50%;
+ box-shadow:0 0 0 10px rgba(255,255,255,.025),0 0 0 21px rgba(255,255,255,.018);
+ pointer-events:none;
+}
+.footer-emblem .footer-logo-link{
+ position:relative;z-index:1;
+ width:142px!important;height:142px!important;
+ margin:0!important;padding:12px!important;
+ border:1px solid #dfc48f!important;
+ border-radius:15px!important;
+ background:#fff!important;
+ box-shadow:0 8px 24px rgba(0,24,43,.22),inset 0 0 0 4px #f4efe5!important;
+}
+.footer-emblem .footer-logo-link img{
+ width:100%!important;height:100%!important;object-fit:contain!important;
+}
+.footer-intro{
+ min-height:150px;
+ padding:8px 20px 8px 10px;
+ border-right:2px solid rgba(224,196,143,.72);
+ position:relative;
+}
+.footer-kicker{
+ display:block;color:#e5c995;font-size:9px;font-weight:700;
+ margin-bottom:7px;letter-spacing:.15px;
+}
+.footer-intro>strong{display:block;color:#fff;font-size:16px;margin-bottom:8px}
+.footer-intro p{max-width:390px;color:#e0ebf1;font-size:10.5px;line-height:2.15;margin:0}
+.footer-principles{
+ display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+ margin-top:14px;color:#e9d6b3;font-size:9px;
+}
+.footer-principles i{width:3px;height:3px;border-radius:50%;background:#d8b77e}
+.footer-links{
+ min-height:150px;padding:12px 17px 8px;
+ border-right:1px solid rgba(255,255,255,.17);
+ background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+ border-radius:9px;
+}
+.footer-links>b{
+ display:block;color:#f3dcae!important;font-size:11px!important;
+ margin-bottom:12px!important;padding-bottom:8px;
+ border-bottom:1px solid rgba(229,202,157,.28);
+}
+.footer-links a{
+ display:flex!important;align-items:center;gap:7px;
+ color:#e0ebf1!important;font-size:10px!important;
+ margin:7px 0!important;transition:color .18s,transform .18s;
+}
+.footer-links a:before{content:"";width:5px;height:5px;border:1px solid #d9bd88;border-radius:1px;transform:rotate(45deg);flex:0 0 auto}
+.footer-links a:hover{color:#f2d9a9!important;transform:translateX(-3px)}
+.footer-grid-refined+.footer-bottom{height:46px}
+@media(max-width:900px){
+ .footer-grid-refined{grid-template-columns:.8fr 1.4fr 1fr!important;gap:18px!important}
+ .footer-links:last-child{grid-column:3}
+}
+@media(max-width:680px){
+ .footer-grid-refined{grid-template-columns:110px 1fr!important;gap:14px!important;padding-block:24px!important}
+ .footer-emblem{min-height:142px;border-left:0}
+ .footer-emblem:before{inset:7px 0}
+ .footer-emblem .footer-logo-link{width:104px!important;height:104px!important;padding:8px!important}
+ .footer-emblem:after{width:72px;height:72px}
+ .footer-intro{min-height:0;padding:5px 12px 5px 0}
+ .footer-intro>strong{font-size:13px}
+ .footer-intro p{font-size:9px;line-height:2}
+ .footer-principles{font-size:8px;gap:5px;margin-top:8px}
+ .footer-links{min-height:0;padding:11px 12px 8px}
+ .footer-links>b{font-size:10px!important;margin-bottom:8px!important}
+ .footer-links a{font-size:9px!important;margin:6px 0!important}
+ .footer-links:last-child{grid-column:auto}
+ .footer-grid-refined+.footer-bottom{height:auto;min-height:45px;gap:4px;padding-block:8px}
+}
+@media(max-width:390px){
+ .footer-grid-refined{grid-template-columns:92px 1fr!important;gap:10px!important}
+ .footer-emblem .footer-logo-link{width:86px!important;height:86px!important}
+ .footer-intro>strong{font-size:12px}
+ .footer-intro p{font-size:8.5px}
+}
+
+/* بازگشت رنگ گرم و طلایی به وضعیت فعال منو و زیرمنو */
+.nav-inner>a.active,
+.nav-dropdown>.nav-parent.active{
+ background:#ead9b8!important;
+ color:#173d58!important;
+ border-color:#d8bd8c!important;
+ box-shadow:inset 0 -2px #b18a50!important;
+}
+.nav-inner>a:hover,
+.nav-dropdown:hover>.nav-parent,
+.nav-dropdown:focus-within>.nav-parent,
+.nav-dropdown.is-open>.nav-parent{
+ background:rgba(239,220,184,.22)!important;
+ border-color:rgba(231,204,157,.58)!important;
+ color:#fff!important;
+}
+.dropdown-menu{
+ background:#f5eedf!important;
+ border-color:#e6d7b9!important;
+ box-shadow:0 13px 30px rgba(39,43,43,.17)!important;
+}
+.dropdown-menu a{
+ color:#5a5142!important;
+ background:transparent!important;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a:focus{
+ color:#403721!important;
+ background:#e9d8b4!important;
+ border-color:#d8c397!important;
+}
+@media(max-width:760px){
+ .dropdown-menu{background:#f5eedf!important}
+}
