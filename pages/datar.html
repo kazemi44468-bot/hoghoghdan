@@ -118,4 +118,5 @@
 (()=>{const shell=document.querySelector('.demo-frame-shell');if(!shell)return;const buttons=shell.querySelectorAll('[data-demo-view]');buttons.forEach(button=>button.addEventListener('click',()=>{const mobile=button.dataset.demoView==='mobile';shell.classList.toggle('is-mobile',mobile);buttons.forEach(item=>{const active=item===button;item.classList.toggle('is-active',active);item.setAttribute('aria-pressed',String(active));});}));})();
 </script>
 
+<script src="../assets/js/persian-numbers.js" defer></script>
 </body></html>
