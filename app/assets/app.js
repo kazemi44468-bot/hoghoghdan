@@ -114,8 +114,8 @@ function admin(){
 return sample+heading('راهبری','مدیریت شبکه','مدیریت کاربران، نقش‌ها، مراکز، فرایندها و تنظیمات سامانه.','<button class="btn primary" data-open="user">＋ کاربر جدید</button>')+'<div class="grid feature-grid">'+[['کاربران و نقش‌ها','تعریف نقش متقاضی، متخصص، مدیر مرکز و مدیر شبکه'],['اعتبارسنجی و صلاحیت','ثبت مدارک، بررسی سوابق و تمدید وضعیت عضویت'],['ساختار سازمانی','مدیریت مراکز، کارگروه‌ها و شعب استانی'],['فرایندها و استانداردها','تعریف گردش کار، فرم‌ها و معیارهای کیفیت'],['امنیت و دسترسی','ثبت رویداد، کنترل دسترسی و سیاست نگهداری داده'],['تنظیمات سامانه','نام، نشان، اطلاعات تماس و پیکربندی عمومی']].map(x=>'<article class="feature-card"><span>⚙</span><h3>'+x[0]+'</h3><p>'+x[1]+'</p><a class="text-link" href="#" data-action="notify" data-message="مدیریت این بخش در نسخه عملیاتی فعال خواهد شد.">مدیریت بخش ←</a></article>').join('')+'</div>';
 }
 const renderers={overview,requests,projects,experts,groups,knowledge,documents,academy,messages,market,finance,assistant,reports,admin};
-function render(view=current){
-current=view;searchTerm='';page.innerHTML=(renderers[view]||overview)();
+function render(view=current,resetSearch=true){
+if(resetSearch)searchTerm='';current=view;page.innerHTML=(renderers[view]||overview)();
 $('#crumb-title').textContent=titles[view]||titles.overview;
 document.querySelectorAll('.nav-link,.mobile-bottom button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
 document.querySelectorAll('.nav-link').forEach(b=>{const restricted=role==='client'&&['projects','groups','finance','reports','admin'].includes(b.dataset.view);b.hidden=restricted;});
@@ -157,7 +157,7 @@ const csv='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='datar-requests.csv';a.click();URL.revokeObjectURL(a.href);toast('فایل خروجی آماده شد.');
 }
 document.addEventListener('click',e=>{
-const nav=e.target.closest('[data-view]');if(nav){render(nav.dataset.view);$('#sidebar').classList.remove('mobile-menu-open');return}
+const nav=e.target.closest('[data-view]');if(nav){render(nav.dataset.view,true);$('#sidebar').classList.remove('mobile-menu-open');return}
 const open=e.target.closest('[data-open]');if(open){openDialog(open.dataset.open);return}
 const action=e.target.closest('[data-action]');if(!action)return;
 const kind=action.dataset.action;
@@ -170,8 +170,8 @@ if(kind==='assistant-demo'){const q=$('#assistant-question').value.trim();$('#as
 });
 document.addEventListener('submit',e=>{if(e.target.id==='dialog-form'){e.preventDefault();submitDialog(e)}});
 document.addEventListener('input',e=>{
-if(e.target.id==='request-search'||e.target.id==='expert-search'){searchTerm=e.target.value;render(current);const id=current==='requests'?'request-search':'expert-search';const input=$('#'+id);if(input){input.focus();input.setSelectionRange(searchTerm.length,searchTerm.length)}}
-if(e.target.id==='global-search'){const q=e.target.value.trim();if(q.length>1){searchTerm=q;render('requests');const input=$('#request-search');if(input)input.value=q}}
+if(e.target.id==='request-search'||e.target.id==='expert-search'){searchTerm=e.target.value;render(current,false);const id=current==='requests'?'request-search':'expert-search';const input=$('#'+id);if(input){input.focus();input.setSelectionRange(searchTerm.length,searchTerm.length)}}
+if(e.target.id==='global-search'){const q=e.target.value.trim();if(q.length>1){searchTerm=q;render('requests',false);const input=$('#request-search');if(input)input.value=q}}
 });
 document.addEventListener('change',e=>{
 if(e.target.id==='role-switch'){role=e.target.value;$('#profile-role').textContent=roleNames[role];render(current);toast('نمایش نقش '+roleNames[role]+' فعال شد.')}
