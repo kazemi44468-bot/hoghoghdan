@@ -1089,3 +1089,70 @@ html{scroll-padding-top:142px}
  .site-header .brand-mark img{width:60px;height:60px}
  .site-header .brand-mark::before{inset:4px}
 }
+
+
+/* نشان رسمی در بالای فهرست‌های کناری؛ مستقل از لوگوی هدر */
+.side-index .side-index-brand{
+ display:flex!important;
+ position:relative;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:0;
+ width:100%;
+ min-height:104px;
+ margin:0 0 12px!important;
+ padding:8px 4px 14px!important;
+ border:0!important;
+ border-bottom:1px solid #e7edf1!important;
+ border-radius:0!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ color:inherit!important;
+}
+.side-index .side-index-brand::before{
+ content:"";
+ position:absolute;
+ top:8px;
+ left:50%;
+ width:82px;
+ height:82px;
+ transform:translateX(-50%);
+ border:1px solid rgba(190,157,101,.42);
+ border-radius:50%;
+ pointer-events:none;
+}
+.side-index .side-index-brand img{
+ position:relative;
+ z-index:1;
+ display:block;
+ width:72px;
+ height:72px;
+ flex:0 0 72px;
+ padding:0;
+ object-fit:contain;
+ background:transparent;
+ border:0;
+ border-radius:0;
+ box-shadow:0 3px 9px rgba(20,48,67,.12);
+}
+.side-index .side-index-brand span{display:none!important}
+.side-index .side-index-brand:hover{background:transparent!important}
+.side-index .side-index-brand:hover::before{border-color:rgba(190,157,101,.72)}
+@media(max-width:680px){
+ .side-index .side-index-brand{
+  min-height:82px;
+  margin:0 0 7px!important;
+  padding:2px 4px 9px!important;
+ }
+ .side-index .side-index-brand::before{
+  top:2px;
+  width:66px;
+  height:66px;
+ }
+ .side-index .side-index-brand img{
+  width:58px;
+  height:58px;
+  flex-basis:58px;
+ }
+}
