@@ -36,6 +36,7 @@ activities:[
 let data;
 try{data=JSON.parse(localStorage.getItem(storeKey))||structuredClone(seed)}catch(e){data=JSON.parse(JSON.stringify(seed))}
 data.experts=(data.experts||[]).map(x=>({...x,education:x.education||'ثبت نشده',experience:x.experience||'ثبت نشده',bio:x.bio||'اطلاعات تکمیلی این پروفایل هنوز وارد نشده است.',contact:x.contact||'ثبت نشده',email:x.email||'ثبت نشده',credential:x.credential||'ثبت نشده',documents:x.documents||[],verification:x.verification||(x.status==='در حال ارزیابی'?'در حال بررسی':x.status||'در حال بررسی')}));
+[data.requests,data.experts,data.projects,data.tasks,data.activities].forEach((list,i)=>{if(!Array.isArray(list)){data[['requests','experts','projects','tasks','activities'][i]]=JSON.parse(JSON.stringify(seed[['requests','experts','projects','tasks','activities'][i]]));}});
 function save(){try{localStorage.setItem(storeKey,JSON.stringify(data))}catch(e){toast('ذخیره‌سازی مرورگر در دسترس نیست.')}}
 const titles={overview:'نمای کلی',requests:'درخواست‌ها و پرونده‌ها',consultation:'درخواست مشاوره حقوقی',projects:'پروژه‌ها و وظایف',experts:'اعضا و متخصصان',groups:'کارگروه‌ها و مراکز',knowledge:'بانک دانش حقوقی',documents:'قراردادها و اسناد',academy:'آکادمی و رویدادها',messages:'پیام‌ها و جلسات',market:'بازار خدمات',finance:'امور مالی',assistant:'دستیار حقوقی',reports:'گزارش‌ها و تحلیل',admin:'مدیریت شبکه'};
 let current='overview',role='manager',searchTerm='';
@@ -48,20 +49,52 @@ function stat(label,value,icon,foot){return '<div class="stat-card"><div class="
 function panel(title,body,link){return '<section class="panel"><div class="panel-head"><h2>'+title+'</h2>'+(link||'')+'</div>'+body+'</section>'}
 function statusClass(s){return s==='جدید'?'new':(s==='تکمیل‌شده'||s==='مختومه'?'done':'progress')}
 function requestRows(list){return list.map(r=>'<tr><td><strong>'+esc(r.id)+'</strong><small>'+esc(r.date)+'</small></td><td><strong>'+esc(r.name)+'</strong><small>'+esc(r.type)+'</small></td><td><strong>'+esc(r.subject)+'</strong><small>'+esc(r.category)+'</small></td><td>'+esc(r.assignee)+'</td><td><span class="status '+statusClass(r.status)+'">'+esc(r.status)+'</span></td><td><div class="request-row-actions"><button class="btn soft small" data-action="view-request" data-id="'+esc(r.id)+'">جزئیات</button><button class="btn ghost small" data-action="cycle-request" data-id="'+esc(r.id)+'">تغییر وضعیت</button></div></td></tr>').join('')}
+function chartSegments(counts){
+const colors=['#4e91b8','#f0b45e','#7b77c8','#55b6a0','#e47e78','#8da4b7'];
+const total=counts.reduce((n,x)=>n+x.value,0)||1;let cursor=0;
+const stops=counts.map((x,i)=>{const from=cursor;cursor+=x.value/total*360;return colors[i%colors.length]+' '+from.toFixed(1)+'deg '+cursor.toFixed(1)+'deg'}).join(',');
+return {gradient:'conic-gradient('+stops+')',colors,total};
+}
 function overview(){
-const open=data.requests.filter(x=>x.status!=='مختومه'&&x.status!=='ردشده').length;
-const done=data.requests.filter(x=>x.status==='مختومه').length;
-const todo=data.tasks.filter(x=>!x.done).length;
-const activities=data.activities.map(a=>'<div class="activity-item"><span class="activity-mark">'+a.icon+'</span><div><b>'+esc(a.title)+'</b><small>'+esc(a.meta)+'</small></div><span class="activity-time">'+esc(a.time)+'</span></div>').join('');
-const tasks=data.tasks.map((t,i)=>'<div class="task-row"><span style="background:'+(t.done?'#6d9b7b':'#b18b55')+'"></span><div><b>'+esc(t.title)+'</b><small>'+esc(t.meta)+'</small></div><button class="btn soft small" data-action="toggle-task" data-index="'+i+'">'+(t.done?'انجام شد':'انجام')+'</button></div>').join('');
-const quick=[['＋','درخواست مشاوره','ثبت نیاز حقوقی','request'],['♙','یافتن متخصص','جست‌وجوی اعضای شبکه','experts'],['▥','بانک دانش','قوانین و منابع حقوقی','knowledge'],['◫','ایجاد پروژه','تعریف پروژه تخصصی','project']];
-return sample+heading('میزکار شما','سلام، به داتار خوش آمدید','نمایی از فعالیت‌ها، خدمات و همکاری‌های شبکه در یک فضای کاری یکپارچه.','<button class="btn primary" data-open="request">＋ درخواست مشاوره حقوقی</button>')+
-'<div class="grid stats-grid">'+stat('درخواست‌های فعال',open,'▤','در حال پیگیری در شبکه')+stat('پرونده‌های مختومه',done,'✓','ثبت‌شده در محیط آزمایشی')+stat('متخصصان نمونه',data.experts.length,'♙','در فهرست نمایشی شبکه')+stat('وظایف باز',todo,'◷','نیازمند اقدام')+'</div>'+
-'<div class="grid dashboard-grid">'+panel('آخرین فعالیت‌ها','<div class="activity-list">'+activities+'</div>','<button class="text-link" data-view="requests">همه درخواست‌ها ←</button>')+
-panel('پیگیری‌های نزدیک','<div class="task-list">'+tasks+'</div>','<button class="text-link" data-view="projects">مشاهده وظایف ←</button>')+'</div>'+
-'<div class="grid quick-grid">'+quick.map(q=>'<button class="quick-action" '+(q[3]==='request'?'data-open="request"':'data-view="'+q[3]+'"')+'><span>'+q[0]+'</span><div><b>'+q[1]+'</b><small>'+q[2]+'</small></div></button>').join('')+'</div>'+
-'<div class="grid split-grid" style="margin-top:14px">'+panel('نمای کلی درخواست‌ها','<div class="table-wrap"><table class="data-table"><thead><tr><th>شناسه</th><th>متقاضی</th><th>موضوع</th><th>وضعیت</th></tr></thead><tbody>'+data.requests.slice(0,3).map(r=>'<tr><td>'+esc(r.id)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.subject)+'</td><td><span class="status '+statusClass(r.status)+'">'+esc(r.status)+'</span></td></tr>').join('')+'</tbody></table></div>','<button class="text-link" data-view="requests">ورود به میز درخواست‌ها ←</button>')+
-panel('پایداری شبکه','<div class="task-list"><div class="task-row"><span></span><div><b>خدمات تخصصی</b><div class="progress"><i style="width:76%"></i></div></div><small>۷۶٪</small></div><div class="task-row"><span></span><div><b>پژوهش و آموزش</b><div class="progress"><i style="width:58%"></i></div></div><small>۵۸٪</small></div><div class="task-row"><span></span><div><b>توسعه زیرساخت</b><div class="progress"><i style="width:42%"></i></div></div><small>۴۲٪</small></div></div><p class="muted">شاخص‌های نمایشی برای نمایش نحوه گزارش‌گیری هستند.</p>')+'</div>';
+const requests=Array.isArray(data.requests)?data.requests:[];
+const experts=Array.isArray(data.experts)?data.experts:[];
+const tasks=Array.isArray(data.tasks)?data.tasks:[];
+const projects=Array.isArray(data.projects)?data.projects:[];
+const activities=Array.isArray(data.activities)?data.activities:[];
+const active=requests.filter(x=>!['مختومه','ردشده'].includes(x.status)).length;
+const done=requests.filter(x=>x.status==='مختومه').length;
+const urgent=requests.filter(x=>['فوری','زمان‌دار'].includes(x.urgency||x.priority)).length;
+const openTasks=tasks.filter(x=>!x.done).length;
+const statuses=['جدید','در حال بررسی','نیازمند تکمیل اطلاعات','ارجاع‌شده','پذیرفته‌شده','مختومه','ردشده'];
+const statusCounts=statuses.map(label=>({label,value:requests.filter(x=>x.status===label).length})).filter(x=>x.value);
+const donut=chartSegments(statusCounts.length?statusCounts:[{label:'هنوز داده‌ای ثبت نشده',value:1}]);
+const cats={};requests.forEach(x=>{const k=x.category||'سایر';cats[k]=(cats[k]||0)+1});
+const categoryRows=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,5);
+const maxCategory=Math.max(1,...categoryRows.map(x=>x[1]));
+const categoryBars=categoryRows.length?categoryRows.map((x,i)=>'<div class="metric-bar-row"><div class="metric-bar-label"><span>'+esc(x[0])+'</span><b>'+x[1]+'</b></div><div class="metric-bar-track"><i style="width:'+(x[1]/maxCategory*100)+'%;--bar-color:'+['#4e91b8','#f0b45e','#7b77c8','#55b6a0','#e47e78'][i]+'"></i></div></div>').join(''):'<div class="empty-state">با ثبت درخواست‌ها، نمودار حوزه‌های خدمات تکمیل می‌شود.</div>';
+const statusLegend=statusCounts.map((x,i)=>'<div class="chart-legend-item"><i style="background:'+donut.colors[i%donut.colors.length]+'"></i><span>'+esc(x.label)+'</span><b>'+x.value+'</b></div>').join('');
+const projectBars=projects.slice(0,4).map((p,i)=>'<div class="project-progress-row"><div><b>'+esc(p.title)+'</b><small>'+esc(p.owner||'واحد مسئول')+'</small></div><strong>'+Number(p.progress||0)+'٪</strong><div class="progress"><i style="width:'+Math.max(0,Math.min(100,Number(p.progress)||0))+'%;background:'+['#4e91b8','#55b6a0','#f0b45e','#8b83c9'][i]+'"></i></div></div>').join('');
+const activityHtml=activities.slice(0,4).map(a=>'<div class="activity-item"><span class="activity-mark">'+esc(a.icon||'•')+'</span><div><b>'+esc(a.title)+'</b><small>'+esc(a.meta)+'</small></div><span class="activity-time">'+esc(a.time||'')+'</span></div>').join('')||'<div class="empty-state">فعالیتی ثبت نشده است.</div>';
+const taskHtml=tasks.slice(0,4).map((t,i)=>'<div class="task-row"><span style="background:'+(t.done?'#55b6a0':'#f0b45e')+'"></span><div><b>'+esc(t.title)+'</b><small>'+esc(t.meta||'')+'</small></div><button type="button" class="btn soft small" data-action="toggle-task" data-index="'+i+'">'+(t.done?'انجام شد':'انجام')+'</button></div>').join('')||'<div class="empty-state">وظیفه‌ای برای نمایش وجود ندارد.</div>';
+const recent=requests.slice(0,4).map(r=>'<tr><td><strong>'+esc(r.id)+'</strong><small>'+esc(r.date||'')+'</small></td><td><strong>'+esc(r.name)+'</strong><small>'+esc(r.category||'')+'</small></td><td>'+esc(r.subject)+'</td><td><span class="status '+statusClass(r.status)+'">'+esc(r.status)+'</span></td><td><button type="button" class="btn soft small" data-action="view-request" data-id="'+esc(r.id)+'">جزئیات</button></td></tr>').join('');
+const now=new Date();
+const dateLabel=now.toLocaleDateString('fa-IR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+return sample+
+'<section class="dashboard-hero"><div class="hero-copy"><span class="eyebrow">DĀTAR WORKSPACE</span><h1>سلام، به فضای کاری داتار خوش آمدید</h1><p>خدمات حقوقی، اعضای متخصص و فعالیت‌های شبکه را از یک میزکار دنبال کنید.</p><div class="hero-actions"><button type="button" class="btn primary" data-open="request">＋ ثبت درخواست حقوقی</button><button type="button" class="btn light" data-view="experts">مشاهده متخصصان</button></div></div><div class="hero-date"><span class="hero-date-icon">✦</span><b>'+dateLabel+'</b><small>میزکار مدیریت شبکه</small></div><div class="hero-orbit"></div></section>'+
+'<div class="grid stats-grid dashboard-stats">'+stat('درخواست‌های در جریان',active,'▤','نیازمند بررسی یا پیگیری')+stat('درخواست‌های مختومه',done,'✓','در داده‌های ثبت‌شده')+stat('اعضای متخصص',experts.length,'♙','پروفایل‌های ثبت‌شده')+stat('اقدامات باز',openTasks,'◷',urgent+' مورد درخواست فوری یا زمان‌دار')+'</div>'+
+'<div class="grid dashboard-visual-grid">'+
+panel('وضعیت درخواست‌ها','<div class="donut-layout"><div class="donut-chart" style="background:'+donut.gradient+'"><div><b>'+requests.length+'</b><small>کل درخواست‌ها</small></div></div><div class="chart-legend">'+(statusLegend||'<div class="chart-legend-item">هنوز درخواستی ثبت نشده است.</div>')+'</div></div><div class="chart-footnote">نمودار بر اساس وضعیت فعلی درخواست‌های ذخیره‌شده در این مرورگر است.</div>')+
+panel('حوزه‌های پرتکرار خدمات','<div class="category-chart">'+categoryBars+'</div><div class="chart-footnote">توزیع موضوعی درخواست‌های ثبت‌شده</div>')+
+'</div>'+
+'<div class="grid dashboard-lower-grid">'+
+panel('فعالیت‌های اخیر','<div class="activity-list">'+activityHtml+'</div>','<button type="button" class="text-link" data-view="requests">همه درخواست‌ها ←</button>')+
+panel('پروژه‌ها و پیشرفت','<div class="project-progress-list">'+(projectBars||'<div class="empty-state">پروژه‌ای ثبت نشده است.</div>')+'</div>','<button type="button" class="text-link" data-view="projects">مدیریت پروژه‌ها ←</button>')+
+'</div>'+
+'<div class="grid dashboard-lower-grid dashboard-lower-second">'+
+panel('اقدامات نزدیک','<div class="task-list">'+taskHtml+'</div>')+
+panel('آخرین درخواست‌ها','<div class="table-wrap"><table class="data-table"><thead><tr><th>شناسه</th><th>متقاضی</th><th>موضوع</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody>'+recent+'</tbody></table></div>','<button type="button" class="text-link" data-view="requests">ورود به میز درخواست‌ها ←</button>')+
+'</div>'+
+'<div class="grid quick-grid"><button type="button" class="quick-action" data-view="consultation"><span>＋</span><div><b>درخواست مشاوره</b><small>ثبت نیاز حقوقی</small></div></button><button type="button" class="quick-action" data-view="experts"><span>♙</span><div><b>یافتن متخصص</b><small>جست‌وجوی اعضای شبکه</small></div></button><button type="button" class="quick-action" data-view="knowledge"><span>▥</span><div><b>بانک دانش</b><small>منابع و محتوای حقوقی</small></div></button><button type="button" class="quick-action" data-view="projects"><span>◫</span><div><b>پروژه‌ها</b><small>مدیریت فعالیت‌ها</small></div></button></div>';
 }
 function consultation(){
 const mine=data.requests.filter(r=>r.source==='public-intake');
@@ -146,13 +179,17 @@ return sample+heading('راهبری','مدیریت شبکه','مدیریت کا�
 }
 const renderers={overview,requests,consultation,projects,experts,groups,knowledge,documents,academy,messages,market,finance,assistant,reports,admin};
 function render(view=current,resetSearch=true){
-if(resetSearch)searchTerm='';current=view;page.innerHTML=(renderers[view]||overview)();
+try{
+if(view==='project')view='projects';if(view==='request')view='consultation';
+if(!renderers[view])view='overview';
+if(resetSearch)searchTerm='';current=view;page.innerHTML=renderers[view]();
 $('#crumb-title').textContent=titles[view]||titles.overview;
 document.querySelectorAll('.nav-link,.mobile-bottom button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
 document.querySelectorAll('.nav-link').forEach(b=>{const restricted=role==='client'&&['projects','groups','finance','reports','admin'].includes(b.dataset.view);b.hidden=restricted;});
-if(role==='client'&&['projects','groups','finance','reports','admin'].includes(view))render('overview');
-if(view==='requests')$('#request-badge').textContent=String(data.requests.filter(r=>r.status==='جدید').length);
+if(role==='client'&&['projects','groups','finance','reports','admin'].includes(view)){render('overview',false);return;}
+const badge=$('#request-badge');if(badge)badge.textContent=String(data.requests.filter(r=>r.status==='جدید').length);
 page.focus({preventScroll:true});
+}catch(err){console.error('Datar render error:',err);page.innerHTML='<section class="panel app-error-panel"><h2>بارگذاری این بخش با خطا مواجه شد</h2><p>اطلاعات نمایشی مرورگر را بررسی یا صفحه را تازه‌سازی کنید.</p><button type="button" class="btn primary" onclick="location.reload()">بارگذاری مجدد</button></section>';}
 }
 function openDialog(type,extra){
 const dlg=$('#action-dialog'),box=$('#dialog-content'),title=$('#dialog-title');
@@ -176,8 +213,8 @@ const dlg=$('#action-dialog'),box=$('#dialog-content');
 $('#dialog-title').textContent='پروفایل تخصصی عضو';
 const docs=(x.documents||[]).length?(x.documents||[]).map(d=>'<span class="doc-chip">▧ '+esc(d)+'</span>').join(''):'مدرکی در نسخه نمایشی ثبت نشده است';
 let controls='';
-if(role==='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="تأییدشده">تأیید صلاحیت</button><button class="btn soft" data-action="verify-expert" data-index="'+index+'" data-status="نیازمند تکمیل">درخواست تکمیل مدارک</button><button class="btn ghost" data-action="verify-expert" data-index="'+index+'" data-status="ردشده">رد درخواست</button></div>';
-else if(role!=='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="در حال بررسی">ارسال مجدد برای بررسی</button></div>';
+if(role==='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button type="button" class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="تأییدشده">تأیید صلاحیت</button ><button type="button" class="btn soft" data-action="verify-expert" data-index="'+index+'" data-status="نیازمند تکمیل">درخواست تکمیل مدارک</button ><button type="button" class="btn ghost" data-action="verify-expert" data-index="'+index+'" data-status="ردشده">رد درخواست</button></div>';
+else if(role!=='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button type="button" class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="در حال بررسی">ارسال مجدد برای بررسی</button></div>';
 box.innerHTML='<div class="profile-sheet"><div class="profile-hero"><span class="profile-avatar">'+esc(x.name.slice(0,1))+'</span><div><h3>'+esc(x.name)+'</h3><p>'+esc(x.level)+' · '+esc(x.city)+'</p><span class="status '+(x.verification==='تأییدشده'?'done':x.verification==='ردشده'?'new':'progress')+'">'+esc(x.verification)+'</span></div></div><div class="profile-facts"><div><small>حوزه تخصص اصلی</small><b>'+esc(x.field)+'</b></div><div><small>تحصیلات</small><b>'+esc(x.education)+'</b></div><div><small>سابقه حرفه‌ای</small><b>'+esc(x.experience)+'</b></div><div><small>شماره پروانه / شناسه حرفه‌ای</small><b>'+esc(x.credential)+'</b></div><div><small>راه ارتباطی</small><b>'+esc(x.contact)+'</b></div><div><small>رایانامه</small><b>'+esc(x.email)+'</b></div></div><div class="profile-section"><b>معرفی حرفه‌ای</b><p>'+esc(x.bio)+'</p></div><div class="profile-section"><b>تخصص‌های تکمیلی</b><div class="expert-tags">'+(x.tags||[]).map(t=>'<span>'+esc(t)+'</span>').join('')+'</div></div><div class="profile-section"><b>مدارک و مستندات ثبت‌شده</b><div class="doc-list">'+docs+'</div></div><p class="muted">وضعیت این پروفایل صرفاً در مرورگر شما ذخیره می‌شود. تأیید نمایشی به معنای احراز واقعی صلاحیت یا اصالت مدارک نیست.</p>'+controls+'</div>';
 dlg.dataset.type='profile';dlg.showModal();
 }
@@ -242,6 +279,8 @@ $('#profile-button').addEventListener('click',()=>toast('برای تغییر ن�
 $('#role-switch').addEventListener('change',()=>{});
 $('#dialog-form').addEventListener('close',()=>{});
 $('#dialog-form').addEventListener('submit',()=>{});
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+window.addEventListener('error',event=>{console.error('Datar runtime error:',event.error||event.message);document.documentElement.classList.add('app-runtime-error');});
+window.addEventListener('unhandledrejection',event=>{console.error('Datar async error:',event.reason);});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(err=>console.warn('Datar service worker:',err));
 render('overview');
 })();
