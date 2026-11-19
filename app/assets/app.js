@@ -37,7 +37,7 @@ let data;
 try{data=JSON.parse(localStorage.getItem(storeKey))||structuredClone(seed)}catch(e){data=JSON.parse(JSON.stringify(seed))}
 data.experts=(data.experts||[]).map(x=>({...x,education:x.education||'ثبت نشده',experience:x.experience||'ثبت نشده',bio:x.bio||'اطلاعات تکمیلی این پروفایل هنوز وارد نشده است.',contact:x.contact||'ثبت نشده',email:x.email||'ثبت نشده',credential:x.credential||'ثبت نشده',documents:x.documents||[],verification:x.verification||(x.status==='در حال ارزیابی'?'در حال بررسی':x.status||'در حال بررسی')}));
 function save(){try{localStorage.setItem(storeKey,JSON.stringify(data))}catch(e){toast('ذخیره‌سازی مرورگر در دسترس نیست.')}}
-const titles={overview:'نمای کلی',requests:'درخواست‌ها و پرونده‌ها',projects:'پروژه‌ها و وظایف',experts:'اعضا و متخصصان',groups:'کارگروه‌ها و مراکز',knowledge:'بانک دانش حقوقی',documents:'قراردادها و اسناد',academy:'آکادمی و رویدادها',messages:'پیام‌ها و جلسات',market:'بازار خدمات',finance:'امور مالی',assistant:'دستیار حقوقی',reports:'گزارش‌ها و تحلیل',admin:'مدیریت شبکه'};
+const titles={overview:'نمای کلی',requests:'درخواست‌ها و پرونده‌ها',consultation:'درخواست مشاوره حقوقی',projects:'پروژه‌ها و وظایف',experts:'اعضا و متخصصان',groups:'کارگروه‌ها و مراکز',knowledge:'بانک دانش حقوقی',documents:'قراردادها و اسناد',academy:'آکادمی و رویدادها',messages:'پیام‌ها و جلسات',market:'بازار خدمات',finance:'امور مالی',assistant:'دستیار حقوقی',reports:'گزارش‌ها و تحلیل',admin:'مدیریت شبکه'};
 let current='overview',role='manager',searchTerm='';
 const roleNames={manager:'مدیر شبکه',lawyer:'عضو متخصص',client:'متقاضی خدمات'};
 const sample='<div class="sample-banner"><span>◇</span><div><b>محیط آزمایشی داتار</b> · اطلاعات این صفحه نمونه است و در مرورگر همین دستگاه ذخیره می‌شود؛ هنوز به پایگاه داده یا سامانه پرداخت آنلاین متصل نیست.</div></div>';
@@ -62,6 +62,32 @@ panel('پیگیری‌های نزدیک','<div class="task-list">'+tasks+'</div>
 '<div class="grid quick-grid">'+quick.map(q=>'<button class="quick-action" '+(q[3]==='request'?'data-open="request"':'data-view="'+q[3]+'"')+'><span>'+q[0]+'</span><div><b>'+q[1]+'</b><small>'+q[2]+'</small></div></button>').join('')+'</div>'+
 '<div class="grid split-grid" style="margin-top:14px">'+panel('نمای کلی درخواست‌ها','<div class="table-wrap"><table class="data-table"><thead><tr><th>شناسه</th><th>متقاضی</th><th>موضوع</th><th>وضعیت</th></tr></thead><tbody>'+data.requests.slice(0,3).map(r=>'<tr><td>'+esc(r.id)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.subject)+'</td><td><span class="status '+statusClass(r.status)+'">'+esc(r.status)+'</span></td></tr>').join('')+'</tbody></table></div>','<button class="text-link" data-view="requests">ورود به میز درخواست‌ها ←</button>')+
 panel('پایداری شبکه','<div class="task-list"><div class="task-row"><span></span><div><b>خدمات تخصصی</b><div class="progress"><i style="width:76%"></i></div></div><small>۷۶٪</small></div><div class="task-row"><span></span><div><b>پژوهش و آموزش</b><div class="progress"><i style="width:58%"></i></div></div><small>۵۸٪</small></div><div class="task-row"><span></span><div><b>توسعه زیرساخت</b><div class="progress"><i style="width:42%"></i></div></div><small>۴۲٪</small></div></div><p class="muted">شاخص‌های نمایشی برای نمایش نحوه گزارش‌گیری هستند.</p>')+'</div>';
+}
+function consultation(){
+const mine=data.requests.filter(r=>r.source==='public-intake');
+const history=mine.length?mine.map(r=>'<article class="intake-history-item"><div><b>'+esc(r.subject)+'</b><small>'+esc(r.id)+' · '+esc(r.date)+' · '+esc(r.category)+'</small></div><span class="status '+statusClass(r.status)+'">'+esc(r.status)+'</span><button class="btn soft small" data-action="view-request" data-id="'+esc(r.id)+'">جزئیات</button></article>').join(''):'<div class="empty-state">هنوز درخواستی از این مسیر در این مرورگر ثبت نشده است.</div>';
+return sample+heading('دریافت خدمات حقوقی','درخواست مشاوره و بررسی حقوقی','نیاز حقوقی خود را ثبت کنید تا دبیرخانه آن را از نظر موضوع، فوریت و نوع خدمت بررسی و برای اقدام مناسب ارجاع کند.','')+
+'<div class="intake-intro-grid"><article class="intake-intro-card"><span>۱</span><div><b>ثبت مسئله</b><small>موضوع و شرح مختصر را وارد کنید.</small></div></article><article class="intake-intro-card"><span>۲</span><div><b>بررسی و ارجاع</b><small>درخواست از نظر تخصص و فوریت ارزیابی می‌شود.</small></div></article><article class="intake-intro-card"><span>۳</span><div><b>پاسخ و مسیر خدمت</b><small>برای تکمیل اطلاعات یا ارائه خدمت با شما ارتباط می‌گیریم.</small></div></article></div>'+
+'<div class="intake-layout"><section class="panel intake-form-panel"><div class="panel-head"><h2>فرم درخواست خدمات حقوقی</h2><span class="required-note">فیلدهای ستاره‌دار الزامی‌اند</span></div><form id="consultation-form" class="intake-form">'+
+'<div class="intake-section-title"><b>اطلاعات متقاضی</b><small>اطلاعات تماس را دقیق وارد کنید تا امکان پیگیری وجود داشته باشد.</small></div><div class="intake-fields">'+
+'<label class="field">نوع متقاضی <select name="applicantType" required><option value="شخص حقیقی">شخص حقیقی</option><option value="شرکت یا سازمان">شرکت یا سازمان</option><option value="نهاد عمومی">نهاد عمومی</option></select></label>'+
+'<label class="field">نام و نام خانوادگی / نام سازمان * <input name="name" required maxlength="120" placeholder="نام کامل یا نام مجموعه"></label>'+
+'<label class="field">شماره همراه * <input name="phone" required inputmode="tel" maxlength="20" placeholder="شماره تماس در دسترس"></label>'+
+'<label class="field">رایانامه <input name="email" type="email" maxlength="150" placeholder="example@email.com"></label>'+
+'<label class="field">شهر محل اقامت یا فعالیت <input name="city" maxlength="80" placeholder="مثلاً تهران"></label>'+
+'</div><div class="intake-section-title"><b>شرح نیاز حقوقی</b><small>از درج اطلاعات محرمانه یا اطلاعات هویتی اشخاص ثالث تا حد امکان خودداری کنید.</small></div><div class="intake-fields">'+
+'<label class="field">نوع خدمت موردنیاز * <select name="category" required><option value="">انتخاب کنید</option><option>مشاوره حقوقی اولیه</option><option>بررسی قرارداد یا سند</option><option>تنظیم قرارداد و توافق‌نامه</option><option>اختلاف ملکی و ثبتی</option><option>حقوق خانواده و امور حسبی</option><option>حقوق کار و تأمین اجتماعی</option><option>حقوق شرکت‌ها و کسب‌وکار</option><option>مطالبات و دعاوی مالی</option><option>کیفری و جرایم</option><option>داوری، میانجیگری و حل اختلاف</option><option>حقوق اداری و شهرداری</option><option>مالکیت فکری و فناوری</option><option>خدمات حقوقی سازمانی</option><option>سایر موضوعات</option></select></label>'+
+'<label class="field">موضوع یا عنوان درخواست * <input name="subject" required maxlength="180" placeholder="مثلاً بررسی اختلاف در قرارداد مشارکت"></label>'+
+'<label class="field">وضعیت فعلی موضوع <select name="stage"><option>در مرحله بررسی و تصمیم‌گیری</option><option>در حال مذاکره یا مکاتبه</option><option>اخطار یا اظهارنامه دریافت کرده‌ام</option><option>پرونده در مرجع قضایی یا اداری مطرح است</option><option>رأی یا تصمیم صادر شده است</option><option>موضوع هنوز به اختلاف نرسیده است</option><option>سایر موارد</option></select></label>'+
+'<label class="field">میزان فوریت <select name="urgency"><option value="عادی">عادی</option><option value="زمان‌دار">دارای مهلت یا زمان‌بندی</option><option value="فوری">فوری</option></select></label>'+
+'<label class="field wide">شرح مسئله و اتفاقات مهم * <textarea name="details" required minlength="20" maxlength="5000" rows="6" placeholder="چه اتفاقی افتاده؟ طرف‌های موضوع چه کسانی هستند؟ چه اقداماتی تاکنون انجام شده؟"></textarea><small class="field-help">شرح روشن و زمان‌بندی‌شده به ارزیابی دقیق‌تر کمک می‌کند.</small></label>'+
+'<label class="field wide">نتیجه یا خدمتی که انتظار دارید <textarea name="desired" maxlength="1500" rows="3" placeholder="برای مثال: بررسی قرارداد، اعلام مسیر قانونی، تنظیم پاسخ یا ارجاع به متخصص"></textarea></label>'+
+'<label class="field wide">مهلت مهم یا تاریخ جلسه (در صورت وجود) <input name="deadline" maxlength="80" placeholder="مثلاً مهلت پاسخ تا تاریخ ..."></label>'+
+'<label class="field wide">مدارک مرتبط <input name="attachments" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"><small class="field-help">در این نسخه آزمایشی فقط نام فایل‌ها ثبت می‌شود و فایل به دبیرخانه ارسال نمی‌شود. از بارگذاری مدارک محرمانه خودداری کنید.</small></label>'+
+'</div><label class="intake-consent"><input type="checkbox" name="consent" required><span>تأیید می‌کنم اطلاعات واردشده تا حد اطلاع من صحیح است و با استفاده از آن برای بررسی و تماس درباره همین درخواست موافقم.</span></label>'+
+'<div class="intake-warning"><b>توجه حقوقی</b><p>ثبت درخواست به‌معنای پذیرش وکالت، ایجاد رابطه وکیل و موکل یا تضمین نتیجه نیست. تا زمان بررسی و اعلام رسمی، مهلت‌های قانونی و قضایی را شخصاً رعایت کنید. در موارد اضطراری یا نزدیک به پایان مهلت، به مرجع صالح یا وکیل دارای صلاحیت مراجعه کنید.</p></div>'+
+'<div class="intake-submit-row"><button class="btn primary" type="submit">ثبت درخواست و دریافت شماره پیگیری</button><span>ثبت در این پیش‌نمایش روی همین مرورگر انجام می‌شود.</span></div></form></section>'+
+'<aside class="intake-side"><section class="panel"><div class="panel-head"><h2>چه خدمات اولیه‌ای دریافت می‌کنید؟</h2></div><ul class="intake-service-list"><li><b>تشخیص اولیه موضوع</b><small>شناسایی حوزه حقوقی و اطلاعات تکمیلی موردنیاز</small></li><li><b>تعیین مسیر اقدام</b><small>پیشنهاد مسیر مناسب برای بررسی یا پیگیری</small></li><li><b>ارجاع به متخصص</b><small>بررسی امکان ارجاع به وکیل یا کارشناس مرتبط</small></li><li><b>بررسی اولیه اسناد</b><small>پس از فراهم‌شدن امکان دریافت امن مدارک</small></li></ul></section><section class="panel"><div class="panel-head"><h2>پیگیری درخواست‌های این دستگاه</h2></div><div class="intake-history">'+history+'</div></section></aside></div>';
 }
 function requests(){
 let list=data.requests.filter(r=>(!searchTerm||[r.id,r.name,r.subject,r.category].join(' ').toLowerCase().includes(searchTerm.toLowerCase())));
@@ -118,7 +144,7 @@ return sample+heading('پایش و ارزیابی','گزارش‌ها و تحل�
 function admin(){
 return sample+heading('راهبری','مدیریت شبکه','مدیریت کاربران، نقش‌ها، مراکز، فرایندها و تنظیمات سامانه.','<button class="btn primary" data-open="user">＋ کاربر جدید</button>')+'<div class="grid feature-grid">'+[['کاربران و نقش‌ها','تعریف نقش متقاضی، متخصص، مدیر مرکز و مدیر شبکه'],['اعتبارسنجی و صلاحیت','ثبت مدارک، بررسی سوابق و تمدید وضعیت عضویت'],['ساختار سازمانی','مدیریت مراکز، کارگروه‌ها و شعب استانی'],['فرایندها و استانداردها','تعریف گردش کار، فرم‌ها و معیارهای کیفیت'],['امنیت و دسترسی','ثبت رویداد، کنترل دسترسی و سیاست نگهداری داده'],['تنظیمات سامانه','نام، نشان، اطلاعات تماس و پیکربندی عمومی']].map(x=>'<article class="feature-card"><span>⚙</span><h3>'+x[0]+'</h3><p>'+x[1]+'</p><a class="text-link" href="#" data-action="notify" data-message="مدیریت این بخش در نسخه عملیاتی فعال خواهد شد.">مدیریت بخش ←</a></article>').join('')+'</div>';
 }
-const renderers={overview,requests,projects,experts,groups,knowledge,documents,academy,messages,market,finance,assistant,reports,admin};
+const renderers={overview,requests,consultation,projects,experts,groups,knowledge,documents,academy,messages,market,finance,assistant,reports,admin};
 function render(view=current,resetSearch=true){
 if(resetSearch)searchTerm='';current=view;page.innerHTML=(renderers[view]||overview)();
 $('#crumb-title').textContent=titles[view]||titles.overview;
@@ -158,7 +184,8 @@ dlg.dataset.type='profile';dlg.showModal();
 function submitDialog(e){
 const form=e.target;if(e.submitter&&e.submitter.value==='cancel'){$('#action-dialog').close();return;}
 const type=$('#action-dialog').dataset.type;const fd=new FormData(form);const v=Object.fromEntries(fd.entries());
-if(type==='request'){
+if(type==='request-detail'){const item=data.requests.find(x=>x.id===$('#action-dialog').dataset.requestId);if(item){item.status=v.status;item.assignee=v.assignee||'تعیین نشده';item.internalNote=v.internalNote||'';item.reviewedAt=new Date().toLocaleString('fa-IR');toast('اطلاعات بررسی درخواست به‌روزرسانی شد.')}}
+else if(type==='request'){
 const id='DT-1405-'+String(data.requests.length+1).padStart(3,'0');
 data.requests.unshift({id,name:v.name,type:roleNames[role],subject:v.subject,category:v.category,status:'جدید',date:'۱۴۰۵/۰۸/۲۸',assignee:'تعیین نشده',priority:v.priority});
 data.activities.unshift({icon:'▤',title:'درخواست جدید ثبت شد',meta:v.name+' · '+id,time:'اکنون'});toast('درخواست در محیط آزمایشی ثبت شد: '+id);
@@ -167,6 +194,17 @@ else if(type==='project'){data.projects.unshift({title:v.title,owner:v.owner,pro
 else{toast('اطلاعات در این نسخه نمایشی ثبت شد؛ برای ذخیره ساختاریافته در نسخه عملیاتی به سرویس مرکزی نیاز است.')}
 save();$('#action-dialog').close();render(current);
 }
+function submitConsultation(form){
+const fd=new FormData(form);const files=Array.from(form.querySelector('[name="attachments"]').files||[]);
+if(files.length>5){toast('حداکثر ۵ فایل را انتخاب کنید.');return}
+if(files.some(f=>f.size>10*1024*1024)){toast('حجم هر فایل باید کمتر از ۱۰ مگابایت باشد.');return}
+const now=new Date();const id='DT-'+new Intl.DateTimeFormat('fa-IR-u-nu-latn',{year:'numeric'}).format(now)+'-'+String(Math.floor(100000+Math.random()*900000));
+const item={id,name:String(fd.get('name')||'').trim(),type:fd.get('applicantType'),phone:String(fd.get('phone')||'').trim(),contact:String(fd.get('phone')||'').trim(),email:String(fd.get('email')||'').trim(),city:String(fd.get('city')||'').trim(),category:fd.get('category'),subject:String(fd.get('subject')||'').trim(),stage:fd.get('stage'),urgency:fd.get('urgency'),priority:fd.get('urgency'),details:String(fd.get('details')||'').trim(),desired:String(fd.get('desired')||'').trim(),deadline:String(fd.get('deadline')||'').trim(),attachments:files.map(f=>f.name),status:'جدید',date:now.toLocaleDateString('fa-IR'),createdAt:now.getTime(),assignee:'تعیین نشده',source:'public-intake'};
+data.requests.unshift(item);data.activities.unshift({icon:'✚',title:'درخواست مشاوره حقوقی جدید ثبت شد',meta:item.name+' · '+item.id,time:now.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})});
+save();
+page.innerHTML=sample+heading('درخواست ثبت شد','درخواست شما در این مرورگر ثبت شد','شماره پیگیری زیر را برای مراجعه بعدی نگهداری کنید.','')+'<section class="panel intake-success"><div class="success-mark">✓</div><h2>شماره پیگیری درخواست</h2><strong class="tracking-code">'+esc(id)+'</strong><p>موضوع: '+esc(item.subject)+'</p><p>وضعیت فعلی: <span class="status new">جدید</span></p><div class="intake-warning"><b>محدودیت نسخه آزمایشی</b><p>این ثبت فقط در حافظه مرورگر همین دستگاه ذخیره شده و هنوز به دبیرخانه شبکه ارسال نشده است. برای ارسال و بررسی واقعی، باید سرویس مرکزی و محل امن بارگذاری مدارک راه‌اندازی شود.</p></div><div class="dialog-actions"><button class="btn primary" data-view="consultation">ثبت درخواست دیگر</button><button class="btn ghost" data-view="requests">مشاهده فهرست درخواست‌ها</button></div></section>';
+page.focus({preventScroll:true});
+}
 function exportCsv(){
 const rows=[['شناسه','متقاضی','نوع','موضوع','حوزه','وضعیت','تاریخ'],...data.requests.map(r=>[r.id,r.name,r.type,r.subject,r.category,r.status,r.date])];
 const csv='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');
@@ -174,20 +212,21 @@ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{t
 }
 document.addEventListener('click',e=>{
 const nav=e.target.closest('[data-view]');if(nav){render(nav.dataset.view,true);$('#sidebar').classList.remove('mobile-menu-open');return}
-const open=e.target.closest('[data-open]');if(open){openDialog(open.dataset.open);return}
+const open=e.target.closest('[data-open]');if(open){if(open.dataset.open==='request'){render('consultation');return}openDialog(open.dataset.open);return}
 const action=e.target.closest('[data-action]');if(!action)return;
 const kind=action.dataset.action;
 if(kind==='notify')toast(action.dataset.message||'این قابلیت در نسخه عملیاتی فعال می‌شود.');
+if(kind==='view-request'){const item=data.requests.find(x=>x.id===action.dataset.id);if(item){const box=$('#dialog-content');$('#dialog-title').textContent='جزئیات درخواست '+item.id;box.innerHTML='<div class="request-detail-sheet"><div class="profile-facts"><div><small>متقاضی</small><b>'+esc(item.name)+'</b></div><div><small>راه تماس</small><b>'+esc(item.phone||item.contact||'ثبت نشده')+'</b></div><div><small>نوع خدمت</small><b>'+esc(item.category)+'</b></div><div><small>فوریت</small><b>'+esc(item.urgency||item.priority||'عادی')+'</b></div><div><small>تاریخ ثبت</small><b>'+esc(item.date)+'</b></div><div><small>وضعیت</small><b>'+esc(item.status)+'</b></div></div><div class="profile-section"><b>شرح مسئله</b><p>'+esc(item.details||'شرح تفصیلی ثبت نشده است.')+'</p></div><div class="profile-section"><b>نتیجه مورد انتظار</b><p>'+esc(item.desired||'ثبت نشده')+'</p></div><div class="profile-section"><b>فایل‌های انتخاب‌شده</b><p>'+esc((item.attachments||[]).join('، ')||'فایلی ثبت نشده')+'</p></div><form id="request-review-form" class="intake-form"><label class="field">وضعیت رسیدگی<select name="status">'+['جدید','در حال بررسی','نیازمند تکمیل اطلاعات','ارجاع‌شده','پذیرفته‌شده','مختومه','ردشده'].map(s=>'<option '+(s===item.status?'selected':'')+'>'+s+'</option>').join('')+'</select></label><label class="field">مسئول یا واحد رسیدگی<input name="assignee" value="'+esc(item.assignee||'')+'"></label><label class="field wide">یادداشت داخلی دبیرخانه<textarea name="internalNote" rows="3">'+esc(item.internalNote||'')+'</textarea></label><button class="btn primary" type="submit">ذخیره نتیجه بررسی</button></form></div>';$('#action-dialog').dataset.type='request-detail';$('#action-dialog').dataset.requestId=item.id;$('#action-dialog').showModal()}}
 if(kind==='view-expert')showExpertProfile(Number(action.dataset.index));
 if(kind==='edit-expert'){const idx=Number(action.dataset.index);$('#action-dialog').close();openDialog('expert',idx)}
 if(kind==='verify-expert'){const p=data.experts[Number(action.dataset.index)];if(p){p.verification=action.dataset.status;p.status=action.dataset.status;save();showExpertProfile(Number(action.dataset.index));toast('وضعیت اعتبارسنجی تغییر کرد.')}}
 if(kind==='toggle-task'){const t=data.tasks[Number(action.dataset.index)];if(t){t.done=!t.done;save();render(current)}}
 if(kind==='cycle-request'){const r=data.requests.find(x=>x.id===action.dataset.id);if(r){const states=['جدید','در حال بررسی','نیازمند تکمیل اطلاعات','ارجاع‌شده','پذیرفته‌شده','مختومه'];r.status=states[(states.indexOf(r.status)+1)%states.length];save();render(current);toast('وضعیت درخواست به‌روزرسانی شد.')}}
 if(kind==='export-requests')exportCsv();
-if(kind==='order-service'){openDialog('request');setTimeout(()=>{const s=$('#dialog-content input[name="subject"]');if(s)s.value='درخواست خدمت: '+action.dataset.service},0)}
+if(kind==='order-service'){render('consultation');setTimeout(()=>{const s=$('#consultation-form input[name="subject"]');if(s)s.value='درخواست خدمت: '+action.dataset.service},0)}
 if(kind==='assistant-demo'){const q=$('#assistant-question').value.trim();$('#assistant-result').textContent=q?'درخواست شما آماده ثبت در صف تحلیل است. در نسخه فعلی پاسخی تولید نمی‌شود؛ پس از اتصال مدل و منابع رسمی، خروجی مستند و قابل ارجاع ارائه خواهد شد.':'ابتدا موضوع یا پرسش را وارد کنید.'}
 });
-document.addEventListener('submit',e=>{if(e.target.id==='dialog-form'){e.preventDefault();submitDialog(e)}});
+document.addEventListener('submit',e=>{if(e.target.id==='dialog-form'){e.preventDefault();submitDialog(e);return}if(e.target.id==='consultation-form'){e.preventDefault();submitConsultation(e.target);return}if(e.target.id==='request-review-form'){e.preventDefault();const f=e.target;const fd=new FormData(f);const item=data.requests.find(x=>x.id===$('#action-dialog').dataset.requestId);if(item){item.status=fd.get('status');item.assignee=fd.get('assignee')||'تعیین نشده';item.internalNote=fd.get('internalNote')||'';item.reviewedAt=new Date().toLocaleString('fa-IR');save();$('#action-dialog').close();render('requests');toast('نتیجه بررسی ذخیره شد.')}return}});
 document.addEventListener('input',e=>{
 if(e.target.id==='request-search'||e.target.id==='expert-search'){searchTerm=e.target.value;render(current,false);const id=current==='requests'?'request-search':'expert-search';const input=$('#'+id);if(input){input.focus();input.setSelectionRange(searchTerm.length,searchTerm.length)}}
 if(e.target.id==='global-search'){const q=e.target.value.trim();if(q.length>1){searchTerm=q;render('requests',false);const input=$('#request-search');if(input)input.value=q}}
