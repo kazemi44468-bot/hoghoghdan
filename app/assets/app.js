@@ -54,8 +54,8 @@ const done=data.requests.filter(x=>x.status==='مختومه').length;
 const todo=data.tasks.filter(x=>!x.done).length;
 const activities=data.activities.map(a=>'<div class="activity-item"><span class="activity-mark">'+a.icon+'</span><div><b>'+esc(a.title)+'</b><small>'+esc(a.meta)+'</small></div><span class="activity-time">'+esc(a.time)+'</span></div>').join('');
 const tasks=data.tasks.map((t,i)=>'<div class="task-row"><span style="background:'+(t.done?'#6d9b7b':'#b18b55')+'"></span><div><b>'+esc(t.title)+'</b><small>'+esc(t.meta)+'</small></div><button class="btn soft small" data-action="toggle-task" data-index="'+i+'">'+(t.done?'انجام شد':'انجام')+'</button></div>').join('');
-const quick=[['＋','ثبت درخواست','ایجاد درخواست جدید','request'],['♙','یافتن متخصص','جست‌وجوی اعضای شبکه','experts'],['▥','بانک دانش','قوانین و منابع حقوقی','knowledge'],['◫','ایجاد پروژه','تعریف پروژه تخصصی','project']];
-return sample+heading('میزکار شما','سلام، به داتار خوش آمدید','نمایی از فعالیت‌ها، خدمات و همکاری‌های شبکه در یک فضای کاری یکپارچه.','<button class="btn primary" data-open="request">＋ ثبت درخواست جدید</button>')+
+const quick=[['＋','درخواست مشاوره','ثبت نیاز حقوقی','request'],['♙','یافتن متخصص','جست‌وجوی اعضای شبکه','experts'],['▥','بانک دانش','قوانین و منابع حقوقی','knowledge'],['◫','ایجاد پروژه','تعریف پروژه تخصصی','project']];
+return sample+heading('میزکار شما','سلام، به داتار خوش آمدید','نمایی از فعالیت‌ها، خدمات و همکاری‌های شبکه در یک فضای کاری یکپارچه.','<button class="btn primary" data-open="request">＋ درخواست مشاوره حقوقی</button>')+
 '<div class="grid stats-grid">'+stat('درخواست‌های فعال',open,'▤','در حال پیگیری در شبکه')+stat('پرونده‌های مختومه',done,'✓','ثبت‌شده در محیط آزمایشی')+stat('متخصصان نمونه',data.experts.length,'♙','در فهرست نمایشی شبکه')+stat('وظایف باز',todo,'◷','نیازمند اقدام')+'</div>'+
 '<div class="grid dashboard-grid">'+panel('آخرین فعالیت‌ها','<div class="activity-list">'+activities+'</div>','<button class="text-link" data-view="requests">همه درخواست‌ها ←</button>')+
 panel('پیگیری‌های نزدیک','<div class="task-list">'+tasks+'</div>','<button class="text-link" data-view="projects">مشاهده وظایف ←</button>')+'</div>'+
