@@ -35,6 +35,7 @@ activities:[
 };
 let data;
 try{data=JSON.parse(localStorage.getItem(storeKey))||structuredClone(seed)}catch(e){data=JSON.parse(JSON.stringify(seed))}
+data.experts=(data.experts||[]).map(x=>({...x,education:x.education||'ثبت نشده',experience:x.experience||'ثبت نشده',bio:x.bio||'اطلاعات تکمیلی این پروفایل هنوز وارد نشده است.',contact:x.contact||'ثبت نشده',email:x.email||'ثبت نشده',credential:x.credential||'ثبت نشده',documents:x.documents||[],verification:x.verification||x.status||'در حال بررسی'}));
 function save(){try{localStorage.setItem(storeKey,JSON.stringify(data))}catch(e){toast('ذخیره‌سازی مرورگر در دسترس نیست.')}}
 const titles={overview:'نمای کلی',requests:'درخواست‌ها و پرونده‌ها',projects:'پروژه‌ها و وظایف',experts:'اعضا و متخصصان',groups:'کارگروه‌ها و مراکز',knowledge:'بانک دانش حقوقی',documents:'قراردادها و اسناد',academy:'آکادمی و رویدادها',messages:'پیام‌ها و جلسات',market:'بازار خدمات',finance:'امور مالی',assistant:'دستیار حقوقی',reports:'گزارش‌ها و تحلیل',admin:'مدیریت شبکه'};
 let current='overview',role='manager',searchTerm='';
@@ -70,11 +71,15 @@ return sample+heading('خدمات حقوقی','درخواست‌ها و پرون
 '<p class="muted" style="margin-top:12px">برای تغییر وضعیت هر درخواست، گزینه «تغییر وضعیت» را انتخاب کنید. در نسخه عملیاتی، ارجاع و ثبت رویدادها با سطح دسترسی انجام می‌شود.</p>';
 }
 function experts(){
-const list=data.experts.filter(x=>!searchTerm||[x.name,x.field,x.city,x.tags.join(' ')].join(' ').toLowerCase().includes(searchTerm.toLowerCase()));
-return sample+heading('سرمایه انسانی','اعضا و متخصصان شبکه','فهرست تخصص‌ها، حوزه فعالیت، شهر و وضعیت اعتبارسنجی اعضای شبکه.','<button class="btn primary" data-open="expert">＋ افزودن متخصص</button>')+
-'<div class="toolbar"><b style="font-size:11px;color:#40586c">فهرست متخصصان <span class="muted">('+list.length+')</span></b><div class="left-tools"><input id="expert-search" placeholder="نام، تخصص یا شهر" value="'+esc(searchTerm)+'"><select id="expert-filter"><option value="">همه وضعیت‌ها</option><option>تأییدشده</option><option>در حال ارزیابی</option></select></div></div>'+
-'<div class="grid cards-grid">'+list.map(x=>'<article class="expert-card"><div class="expert-head"><span class="expert-avatar">'+esc(x.name.slice(0,1))+'</span><div><h3>'+esc(x.name)+'</h3><p>'+esc(x.level)+' · '+esc(x.city)+'</p></div></div><p style="font-size:9px;color:#536b7f;margin-top:11px">'+esc(x.field)+'</p><div class="expert-tags">'+x.tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div><div class="expert-foot"><span>وضعیت: '+esc(x.status)+'</span><b>مشاهده پروفایل ←</b></div></article>').join('')+'</div>';
+const list=data.experts.map((x,i)=>({...x,_index:i})).filter(x=>!searchTerm||[x.name,x.field,x.city,x.tags.join(' '),x.education].join(' ').toLowerCase().includes(searchTerm.toLowerCase()));
+const pending=data.experts.filter(x=>x.verification==='در حال بررسی').length;
+return sample+heading('سرمایه انسانی','اعضا و متخصصان شبکه','پروفایل حرفه‌ای، سوابق، مدارک و فرایند ارزیابی صلاحیت اعضا.','<button class="btn primary" data-open="expert">＋ ثبت پروفایل تخصصی</button>')+
+'<div class="grid stats-grid">'+stat('اعضای ثبت‌شده',data.experts.length,'♙','پروفایل‌های نمونه')+stat('اعتبارسنجی‌شده',data.experts.filter(x=>x.verification==='تأییدشده').length,'✓','دارای وضعیت تأیید')+stat('در صف بررسی',pending,'◷','نیازمند ارزیابی')+stat('حوزه‌های تخصصی',new Set(data.experts.map(x=>x.field)).size,'⌘','حوزه‌های ثبت‌شده')+'</div>'+
+'<div class="toolbar"><b style="font-size:11px;color:#40586c">فهرست متخصصان <span class="muted">('+list.length+')</span></b><div class="left-tools"><input id="expert-search" placeholder="نام، تخصص یا شهر" value="'+esc(searchTerm)+'"><select id="expert-filter"><option value="">همه وضعیت‌ها</option><option>تأییدشده</option><option>در حال بررسی</option><option>نیازمند تکمیل</option><option>ردشده</option></select></div></div>'+
+'<div class="grid cards-grid">'+list.map(x=>'<article class="expert-card"><div class="expert-head"><span class="expert-avatar">'+esc(x.name.slice(0,1))+'</span><div><h3>'+esc(x.name)+'</h3><p>'+esc(x.level)+' · '+esc(x.city)+'</p></div></div><p style="font-size:9px;color:#536b7f;margin-top:11px">'+esc(x.field)+'</p><div class="expert-tags">'+x.tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div><div class="expert-foot"><span class="status '+(x.verification==='تأییدشده'?'done':x.verification==='ردشده'?'new':'progress')+'">'+esc(x.verification)+'</span><button class="text-link" data-action="view-expert" data-index="'+x._index+'">پروفایل و مدارک ←</button></div></article>').join('')+'</div>'+
+'<div class="role-note" style="margin-top:14px">اعتبارسنجی در این نسخه نمایشی صرفاً گردش کار آزمایشی است. بررسی اصالت پروانه، مدارک تحصیلی و سوابق حرفه‌ای باید در نسخه عملیاتی توسط مرجع مجاز و با ثبت مستندات انجام شود.</div>';
 }
+
 function projects(){
 return sample+heading('مدیریت اجرا','پروژه‌ها و وظایف','تعریف پروژه، تعیین مسئول، زمان‌بندی، پایش پیشرفت و تحویل خروجی.','<button class="btn primary" data-open="project">＋ پروژه جدید</button>')+
 '<div class="grid cards-grid">'+data.projects.map((p,i)=>'<article class="feature-card"><span>◫</span><h3>'+esc(p.title)+'</h3><p>مسئول: '+esc(p.owner)+'<br>موعد: '+esc(p.due)+'<br>وضعیت: '+esc(p.status)+'</p><div class="progress"><i style="width:'+p.progress+'%"></i></div><div class="expert-foot"><span>پیشرفت</span><b>'+p.progress+'٪</b></div></article>').join('')+'</div>'+
@@ -128,7 +133,7 @@ const dlg=$('#action-dialog'),box=$('#dialog-content'),title=$('#dialog-title');
 const field=(label,name,placeholder,type='text',wide=false)=>'<label class="field '+(wide?'wide':'')+'">'+label+'<input name="'+name+'" type="'+type+'" placeholder="'+(placeholder||'')+'" required></label>';
 let body='',t='ثبت اطلاعات';
 if(type==='request'){t='ثبت درخواست خدمات حقوقی';body='<div class="dialog-grid">'+field('نام متقاضی / سازمان','name','نام کامل یا نام سازمان')+field('راه ارتباطی','contact','شماره تماس یا ایمیل')+'<label class="field">نوع درخواست<select name="category"><option>مشاوره حقوقی</option><option>تنظیم و بررسی قرارداد</option><option>خدمات حقوقی سازمانی</option><option>داوری و حل اختلاف</option><option>پژوهش حقوقی</option><option>حقوق فناوری</option><option>حمایت عام‌المنفعه</option></select></label><label class="field">فوریت<select name="priority"><option>عادی</option><option>فوری</option></select></label>'+field('عنوان درخواست','subject','شرح کوتاه موضوع','text',true)+'<label class="field wide">توضیحات<textarea name="details" placeholder="شرح اولیه و خروجی مورد انتظار" required></textarea></label></div>'}
-else if(type==='expert'){t='افزودن متخصص نمایشی';body='<div class="dialog-grid">'+field('نام و نام خانوادگی','name','نام متخصص')+field('شهر','city','شهر محل فعالیت')+field('حوزه تخصص','field','حوزه اصلی تخصص')+field('نوع همکاری','level','عضو / همکار / کارشناس')+'</div>'}
+else if(type==='expert'){t='ثبت پروفایل تخصصی عضو';body='<div class="dialog-grid">'+field('نام و نام خانوادگی','name','نام کامل')+field('شهر محل فعالیت','city','شهر')+field('حوزه تخصص اصلی','field','مثلاً حقوق تجارت و شرکت‌ها')+field('نوع عضویت / همکاری','level','عضو علمی / وکیل همکار / متخصص')+field('مدرک و رشته تحصیلی','education','مثلاً کارشناسی ارشد حقوق خصوصی')+field('سابقه حرفه‌ای','experience','مثلاً ۱۲ سال')+field('شماره پروانه یا شناسه حرفه‌ای (در صورت وجود)','credential','شناسه حرفه‌ای','text',true)+field('راه ارتباطی','contact','شماره تماس کاری')+field('رایانامه','email','name@example.com','email')+'<label class="field wide">تخصص‌های تکمیلی <input name="tags" placeholder="قراردادها، داوری، حاکمیت شرکتی"></label><label class="field wide">معرفی حرفه‌ای <textarea name="bio" placeholder="سوابق، زمینه‌های فعالیت و تجربه‌های شاخص"></textarea></label><label class="field wide">نام فایل مدارک (صرفاً نمایشی) <input name="documents" placeholder="مثلاً پروانه-وکالت.pdf، مدرک-تحصیلی.pdf"></label></div><p class="muted">در این نسخه فقط نام فایل ثبت می‌شود و مدرکی بارگذاری یا به سرور ارسال نمی‌شود. از ورود اطلاعات هویتی حساس خودداری کنید.</p>'}
 else if(type==='project'){t='تعریف پروژه جدید';body='<div class="dialog-grid">'+field('عنوان پروژه','title','عنوان پروژه')+field('مرکز یا مسئول','owner','واحد مسئول')+field('تاریخ هدف','due','۱۴۰۵/۰۹/۲۰')+field('درصد پیشرفت','progress','۰ تا ۱۰۰','number')+'</div>'}
 else if(type==='meeting'){t='ثبت جلسه جدید';body='<div class="dialog-grid">'+field('عنوان جلسه','title','عنوان جلسه')+field('تاریخ و ساعت','date','تاریخ و ساعت')+field('مسئول جلسه','owner','نام مسئول')+field('محل / پیوند','place','محل یا پیوند جلسه')+'</div>'}
 else if(type==='group'){t='پیشنهاد کارگروه جدید';body='<div class="dialog-grid">'+field('عنوان کارگروه','title','عنوان')+field('حوزه فعالیت','field','حوزه تخصص')+'<label class="field wide">شرح مأموریت<textarea name="details" required></textarea></label></div>'}
@@ -139,6 +144,17 @@ else if(type==='invoice'){t='ثبت صورتحساب آزمایشی';body='<div 
 else if(type==='user'){t='افزودن کاربر نمایشی';body='<div class="dialog-grid">'+field('نام کاربر','name','نام')+field('نقش','level','نقش سازمانی')+field('راه ارتباطی','contact','ایمیل یا شماره')+'</div>'}
 title.textContent=t;box.innerHTML=body;dlg.dataset.type=type;dlg.showModal();
 }
+function showExpertProfile(index){
+const x=data.experts[index];if(!x)return;
+const dlg=$('#action-dialog'),box=$('#dialog-content');
+$('#dialog-title').textContent='پروفایل تخصصی عضو';
+const docs=(x.documents||[]).length?(x.documents||[]).map(d=>'<span class="doc-chip">▧ '+esc(d)+'</span>').join(''):'مدرکی در نسخه نمایشی ثبت نشده است';
+let controls='';
+if(role==='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="تأییدشده">تأیید صلاحیت</button><button class="btn soft" data-action="verify-expert" data-index="'+index+'" data-status="نیازمند تکمیل">درخواست تکمیل مدارک</button><button class="btn ghost" data-action="verify-expert" data-index="'+index+'" data-status="ردشده">رد درخواست</button></div>';
+else if(role!=='manager'&&x.verification!=='تأییدشده')controls='<div class="verify-actions"><button class="btn primary" data-action="verify-expert" data-index="'+index+'" data-status="در حال بررسی">ارسال مجدد برای بررسی</button></div>';
+box.innerHTML='<div class="profile-sheet"><div class="profile-hero"><span class="profile-avatar">'+esc(x.name.slice(0,1))+'</span><div><h3>'+esc(x.name)+'</h3><p>'+esc(x.level)+' · '+esc(x.city)+'</p><span class="status '+(x.verification==='تأییدشده'?'done':x.verification==='ردشده'?'new':'progress')+'">'+esc(x.verification)+'</span></div></div><div class="profile-facts"><div><small>حوزه تخصص اصلی</small><b>'+esc(x.field)+'</b></div><div><small>تحصیلات</small><b>'+esc(x.education)+'</b></div><div><small>سابقه حرفه‌ای</small><b>'+esc(x.experience)+'</b></div><div><small>شماره پروانه / شناسه حرفه‌ای</small><b>'+esc(x.credential)+'</b></div><div><small>راه ارتباطی</small><b>'+esc(x.contact)+'</b></div><div><small>رایانامه</small><b>'+esc(x.email)+'</b></div></div><div class="profile-section"><b>معرفی حرفه‌ای</b><p>'+esc(x.bio)+'</p></div><div class="profile-section"><b>تخصص‌های تکمیلی</b><div class="expert-tags">'+(x.tags||[]).map(t=>'<span>'+esc(t)+'</span>').join('')+'</div></div><div class="profile-section"><b>مدارک و مستندات ثبت‌شده</b><div class="doc-list">'+docs+'</div></div><p class="muted">وضعیت این پروفایل صرفاً در مرورگر شما ذخیره می‌شود. تأیید نمایشی به معنای احراز واقعی صلاحیت یا اصالت مدارک نیست.</p>'+controls+'</div>';
+dlg.dataset.type='profile';dlg.showModal();
+}
 function submitDialog(e){
 const form=e.target;if(e.submitter&&e.submitter.value==='cancel'){$('#action-dialog').close();return;}
 const type=$('#action-dialog').dataset.type;const fd=new FormData(form);const v=Object.fromEntries(fd.entries());
@@ -146,7 +162,7 @@ if(type==='request'){
 const id='DT-1405-'+String(data.requests.length+1).padStart(3,'0');
 data.requests.unshift({id,name:v.name,type:roleNames[role],subject:v.subject,category:v.category,status:'جدید',date:'۱۴۰۵/۰۸/۲۸',assignee:'تعیین نشده',priority:v.priority});
 data.activities.unshift({icon:'▤',title:'درخواست جدید ثبت شد',meta:v.name+' · '+id,time:'اکنون'});toast('درخواست در محیط آزمایشی ثبت شد: '+id);
-}else if(type==='expert'){data.experts.unshift({name:v.name,field:v.field,level:v.level,city:v.city,tags:['عضویت جدید'],status:'در حال ارزیابی'});toast('متخصص به فهرست نمونه افزوده شد.')}
+}else if(type==='expert'){data.experts.unshift({name:v.name,field:v.field,level:v.level,city:v.city,tags:(v.tags||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),education:v.education,experience:v.experience,credential:v.credential,contact:v.contact,email:v.email,bio:v.bio||'اطلاعات تکمیلی ثبت نشده است.',documents:(v.documents||'').split(/[،,]/).map(x=>x.trim()).filter(Boolean),status:'در حال بررسی',verification:'در حال بررسی'});data.activities.unshift({icon:'♙',title:'پروفایل تخصصی جدید ثبت شد',meta:v.name+' · در انتظار اعتبارسنجی',time:'اکنون'});toast('پروفایل ثبت شد و در صف اعتبارسنجی قرار گرفت.')}
 else if(type==='project'){data.projects.unshift({title:v.title,owner:v.owner,progress:Math.max(0,Math.min(100,Number(v.progress)||0)),due:v.due,status:'در حال اجرا'});toast('پروژه جدید ایجاد شد.')}
 else{toast('اطلاعات در این نسخه نمایشی ثبت شد؛ برای ذخیره ساختاریافته در نسخه عملیاتی به سرویس مرکزی نیاز است.')}
 save();$('#action-dialog').close();render(current);
@@ -162,6 +178,8 @@ const open=e.target.closest('[data-open]');if(open){openDialog(open.dataset.open
 const action=e.target.closest('[data-action]');if(!action)return;
 const kind=action.dataset.action;
 if(kind==='notify')toast(action.dataset.message||'این قابلیت در نسخه عملیاتی فعال می‌شود.');
+if(kind==='view-expert')showExpertProfile(Number(action.dataset.index));
+if(kind==='verify-expert'){const p=data.experts[Number(action.dataset.index)];if(p){p.verification=action.dataset.status;p.status=action.dataset.status;save();showExpertProfile(Number(action.dataset.index));toast('وضعیت اعتبارسنجی تغییر کرد.')}}
 if(kind==='toggle-task'){const t=data.tasks[Number(action.dataset.index)];if(t){t.done=!t.done;save();render(current)}}
 if(kind==='cycle-request'){const r=data.requests.find(x=>x.id===action.dataset.id);if(r){const states=['جدید','در حال بررسی','نیازمند تکمیل اطلاعات','ارجاع‌شده','پذیرفته‌شده','مختومه'];r.status=states[(states.indexOf(r.status)+1)%states.length];save();render(current);toast('وضعیت درخواست به‌روزرسانی شد.')}}
 if(kind==='export-requests')exportCsv();
@@ -176,7 +194,7 @@ if(e.target.id==='global-search'){const q=e.target.value.trim();if(q.length>1){s
 document.addEventListener('change',e=>{
 if(e.target.id==='role-switch'){role=e.target.value;$('#profile-role').textContent=roleNames[role];render(current);toast('نمایش نقش '+roleNames[role]+' فعال شد.')}
 if(e.target.id==='request-filter'){const val=e.target.value;const rows=data.requests.filter(r=>(!val||r.status===val)&&(!searchTerm||[r.id,r.name,r.subject,r.category].join(' ').toLowerCase().includes(searchTerm.toLowerCase())));$('#request-rows').innerHTML=requestRows(rows)}
-if(e.target.id==='expert-filter'){const val=e.target.value;document.querySelectorAll('.expert-card').forEach((card,i)=>{card.hidden=!!val&&data.experts[i]&&data.experts[i].status!==val})}
+if(e.target.id==='expert-filter'){const val=e.target.value;document.querySelectorAll('.expert-card').forEach(card=>{const status=card.querySelector('.status')?.textContent||'';card.hidden=!!val&&status!==val})}
 });
 $('#mobile-menu').addEventListener('click',()=>$('#sidebar').classList.toggle('mobile-menu-open'));
 $('#notifications').addEventListener('click',()=>toast('اعلان تازه‌ای در محیط آزمایشی وجود ندارد.'));
