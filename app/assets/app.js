@@ -140,7 +140,7 @@ else if(type==='user'){t='افزودن کاربر نمایشی';body='<div class
 title.textContent=t;box.innerHTML=body;dlg.dataset.type=type;dlg.showModal();
 }
 function submitDialog(e){
-const form=e.currentTarget;if(e.submitter&&e.submitter.value==='cancel')return;
+const form=e.target;if(e.submitter&&e.submitter.value==='cancel'){$('#action-dialog').close();return;}
 const type=$('#action-dialog').dataset.type;const fd=new FormData(form);const v=Object.fromEntries(fd.entries());
 if(type==='request'){
 const id='DT-1405-'+String(data.requests.length+1).padStart(3,'0');
