@@ -1,4 +1,4 @@
-const CACHE='datar-shell-v4';
+const CACHE='datar-shell-v5';
 const CORE=[
  './','./index.html','./assets/app.css','./assets/app.js',
  './manifest.webmanifest','../assets/images/logo.png'
@@ -23,7 +23,7 @@ self.addEventListener('fetch',event=>{
   }).catch(()=>caches.match('./index.html')));
   return;
  }
- const isCoreAsset=/\\.(?:js|css|webmanifest)$/.test(url.pathname);
+ const isCoreAsset=url.pathname.endsWith('.js')||url.pathname.endsWith('.css')||url.pathname.endsWith('.webmanifest');
  if(isCoreAsset){
   event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{
    if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(request,copy));}
