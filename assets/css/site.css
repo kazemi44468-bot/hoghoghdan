@@ -1285,3 +1285,43 @@ html{scroll-padding-top:142px}
   flex-basis:58px!important;
  }
 }
+
+
+/* نوار نشان ثابت و ناحیه مستقل اسکرول فهرست خدمات */
+.services-index{
+ display:flex!important;
+ flex-direction:column!important;
+ height:calc(100vh - 128px);
+ max-height:calc(100vh - 128px)!important;
+ overflow:hidden!important;
+}
+.services-index>.side-index-brand{
+ position:relative!important;
+ top:auto!important;
+ z-index:2;
+ flex:0 0 auto!important;
+}
+.services-index-scroll{
+ flex:1 1 auto;
+ min-height:0;
+ overflow-y:auto;
+ overflow-x:hidden;
+ overscroll-behavior:contain;
+ scrollbar-width:thin;
+ scrollbar-color:#d7c39f #f5f7f8;
+ padding:0 2px 5px;
+}
+@media(max-width:680px){
+ .services-index{
+  display:flex!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+ }
+ .services-index-scroll{
+  flex:none;
+  min-height:0;
+  overflow:visible;
+  padding:0;
+ }
+}
