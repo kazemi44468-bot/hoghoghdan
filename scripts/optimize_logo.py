@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Lossless PNG optimization for the official site logo."""
-# Re-run optimizer after workflow activation.
+# Lossless optimization is repeated safely; unchanged files are not committed.
+# Final deployment trigger after logo optimization.
 from pathlib import Path
 from PIL import Image
 import os
