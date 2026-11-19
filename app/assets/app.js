@@ -35,8 +35,9 @@ activities:[
 };
 let data;
 try{data=JSON.parse(localStorage.getItem(storeKey))||structuredClone(seed)}catch(e){data=JSON.parse(JSON.stringify(seed))}
-data.experts=(data.experts||[]).map(x=>({...x,education:x.education||'ثبت نشده',experience:x.experience||'ثبت نشده',bio:x.bio||'اطلاعات تکمیلی این پروفایل هنوز وارد نشده است.',contact:x.contact||'ثبت نشده',email:x.email||'ثبت نشده',credential:x.credential||'ثبت نشده',documents:x.documents||[],verification:x.verification||(x.status==='در حال ارزیابی'?'در حال بررسی':x.status||'در حال بررسی')}));
-[data.requests,data.experts,data.projects,data.tasks,data.activities].forEach((list,i)=>{if(!Array.isArray(list)){data[['requests','experts','projects','tasks','activities'][i]]=JSON.parse(JSON.stringify(seed[['requests','experts','projects','tasks','activities'][i]]));}});
+if(!data||typeof data!=='object'||Array.isArray(data))data=JSON.parse(JSON.stringify(seed));
+['requests','experts','projects','tasks','activities'].forEach(key=>{if(!Array.isArray(data[key]))data[key]=JSON.parse(JSON.stringify(seed[key]));else data[key]=data[key].filter(item=>item&&typeof item==='object');});
+data.experts=data.experts.map(x=>({...x,education:x.education||'ثبت نشده',experience:x.experience||'ثبت نشده',bio:x.bio||'اطلاعات تکمیلی این پروفایل هنوز وارد نشده است.',contact:x.contact||'ثبت نشده',email:x.email||'ثبت نشده',credential:x.credential||'ثبت نشده',documents:Array.isArray(x.documents)?x.documents:[],verification:x.verification||(x.status==='در حال ارزیابی'?'در حال بررسی':x.status||'در حال بررسی')}));
 function save(){try{localStorage.setItem(storeKey,JSON.stringify(data))}catch(e){toast('ذخیره‌سازی مرورگر در دسترس نیست.')}}
 const titles={overview:'نمای کلی',requests:'درخواست‌ها و پرونده‌ها',consultation:'درخواست مشاوره حقوقی',projects:'پروژه‌ها و وظایف',experts:'اعضا و متخصصان',groups:'کارگروه‌ها و مراکز',knowledge:'بانک دانش حقوقی',documents:'قراردادها و اسناد',academy:'آکادمی و رویدادها',messages:'پیام‌ها و جلسات',market:'بازار خدمات',finance:'امور مالی',assistant:'دستیار حقوقی',reports:'گزارش‌ها و تحلیل',admin:'مدیریت شبکه'};
 let current='overview',role='manager',searchTerm='';
