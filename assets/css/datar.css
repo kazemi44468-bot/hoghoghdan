@@ -137,3 +137,38 @@
 .datar-home-promo-actions a{font-size:9px;font-weight:700;text-decoration:none;color:#e5c994}
 .datar-home-promo-actions a+ a{color:#d5e0e7}
 @media(max-width:680px){.datar-home-promo-inner{grid-template-columns:48px 1fr;padding:15px;gap:12px}.datar-home-promo-mark{width:45px;height:45px;font-size:26px}.datar-home-promo-copy h2{font-size:13px}.datar-home-promo-actions{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:15px;padding-right:59px}}
+
+/* منوی یکپارچه و مرتب شبکه */
+.main-nav{background:rgba(0,65,99,.97)!important;border-top:1px solid rgba(255,255,255,.2)!important}
+.nav-inner{width:min(1240px,calc(100% - 28px));min-height:51px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding-block:5px}
+.nav-inner>a,.nav-parent{display:flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:6px 11px!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:6px!important;background:rgba(255,255,255,.075)!important;color:#f3f7fa!important;font-size:10px!important;font-weight:600;white-space:nowrap;transition:background .18s ease,border-color .18s ease}
+.nav-inner>a:hover,.nav-parent:hover,.nav-dropdown:focus-within>.nav-parent,.nav-dropdown.is-open>.nav-parent,.nav-inner>a.active,.nav-parent.active{background:#edf3f6!important;color:#124d6b!important;border-color:#d7e5ec!important}
+.nav-dropdown{position:relative;display:flex;align-items:center;gap:0}
+.nav-toggle{display:grid;place-items:center;width:20px;height:30px;margin-inline-start:-5px;padding:0;border:0!important;border-radius:4px;background:transparent!important;color:#e4c997;cursor:pointer}
+.nav-caret{width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .18s}
+.nav-dropdown.is-open>.nav-toggle .nav-caret{transform:rotate(225deg) translate(-1px,-1px)}
+.dropdown-menu{display:none;position:absolute;top:calc(100% + 5px);right:0;min-width:210px;max-height:min(70vh,480px);overflow:auto;padding:7px;background:#fff;border:1px solid #dce5eb;border-radius:8px;box-shadow:0 14px 32px rgba(8,39,62,.2);z-index:100}
+.nav-dropdown:hover>.dropdown-menu,.nav-dropdown:focus-within>.dropdown-menu,.nav-dropdown.is-open>.dropdown-menu{display:block}
+.dropdown-menu a{display:block;padding:8px 10px;margin:1px 0;border-radius:5px;color:#40586c;font-size:10px;line-height:1.8;white-space:nowrap}
+.dropdown-menu a:hover,.dropdown-menu a:focus{background:#edf4f8;color:#07527a;outline:none}
+.nav-datar>.nav-parent{background:rgba(222,195,151,.18)!important;border-color:rgba(230,203,161,.5)!important;color:#f5dfb9!important}
+.nav-datar>.nav-parent:hover,.nav-datar:focus-within>.nav-parent,.nav-datar.is-current>.nav-parent{background:#f1e5d0!important;color:#17435e!important}
+@media(max-width:760px){
+ .header-main{min-height:66px}
+ .main-nav{padding:4px 0}
+ .nav-inner{justify-content:center;gap:3px;min-height:0;padding-block:2px}
+ .nav-inner>a,.nav-parent{min-height:30px;padding:4px 8px!important;font-size:9px!important}
+ .nav-toggle{width:16px;height:26px}
+ .dropdown-menu{top:calc(100% + 3px);width:min(260px,calc(100vw - 28px));min-width:0;max-height:55vh}
+ .dropdown-menu a{white-space:normal}
+}
+@media(max-width:430px){.nav-inner{justify-content:flex-start}.nav-inner>a,.nav-parent{font-size:8.5px!important;padding-inline:6px!important}}
+/* کنترل پیش‌نمایش دسکتاپ و موبایل داتار */
+.demo-frame-bar{flex-wrap:wrap}
+.demo-view-switch{display:flex;align-items:center;gap:4px;margin-inline:auto}
+.demo-view-switch button{border:1px solid #dce4e9;border-radius:5px;background:#fff;color:#627584;padding:5px 9px;font:600 8px Vazirmatn;cursor:pointer}
+.demo-view-switch button.is-active{background:#eaf1f5;border-color:#aebfca;color:#174b6b}
+.demo-viewport{min-height:760px;background-color:#e9eef1;background-image:linear-gradient(45deg,#dce4e9 25%,transparent 25%),linear-gradient(-45deg,#dce4e9 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#dce4e9 75%),linear-gradient(-45deg,transparent 75%,#dce4e9 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0;overflow:auto}
+.demo-viewport iframe{display:block;width:100%;height:760px;margin:0 auto;border:0;background:#f3f6f8;transition:width .2s ease,box-shadow .2s ease}
+.demo-frame-shell.is-mobile .demo-viewport iframe{width:min(390px,100%);height:780px;border-inline:1px solid #cfd9df;box-shadow:0 8px 30px rgba(19,46,65,.16)}
+@media(max-width:680px){.demo-frame-bar{height:auto;min-height:44px;padding:8px;gap:7px}.demo-frame-bar>span{flex:1}.demo-view-switch{order:3;width:100%;justify-content:center}.demo-viewport,.demo-viewport iframe{min-height:0;height:690px}.demo-frame-shell.is-mobile .demo-viewport iframe{height:760px}}
